@@ -1,4 +1,4 @@
-USE webshop;
+USE webshop_laptop;
 
 CREATE TABLE IF NOT EXISTS reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
