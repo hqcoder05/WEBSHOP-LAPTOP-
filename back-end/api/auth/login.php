@@ -42,4 +42,4 @@ if (!empty($data->email) && !empty($data->password)) {
     http_response_code(400);
     echo json_encode(["status" => "error", "message" => "Vui lòng nhập email và mật khẩu!"]);
 }
-?>
+
