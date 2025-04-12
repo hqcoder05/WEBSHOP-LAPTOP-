@@ -1,5 +1,8 @@
 <?php
-class OrderDetail {
+
+namespace models;
+class OrderDetail
+{
     private $conn;
     private $table = 'order_details';
 
@@ -9,12 +12,14 @@ class OrderDetail {
     public $quantity;
     public $price;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
     // Tạo chi tiết đơn hàng
-    public function create() {
+    public function create()
+    {
         $query = "INSERT INTO " . $this->table . " (order_id, product_id, quantity, price) VALUES (:order_id, :product_id, :quantity, :price)";
         $stmt = $this->conn->prepare($query);
 

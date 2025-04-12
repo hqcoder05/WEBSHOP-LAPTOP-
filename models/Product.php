@@ -1,5 +1,10 @@
 <?php
-class Product {
+
+namespace models;
+use Database;
+
+class Product
+{
     private $conn;
     private $table_name = "products"; // Tên bảng sản phẩm
 
@@ -11,13 +16,15 @@ class Product {
     public $created;
 
     // Hàm khởi tạo để kết nối cơ sở dữ liệu
-    public function __construct() {
+    public function __construct()
+    {
         $database = new Database();
         $this->conn = $database->getConnection();
     }
 
     // Lấy tất cả các sản phẩm
-    public function readAll() {
+    public function readAll()
+    {
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -25,7 +32,8 @@ class Product {
     }
 
     // Lấy một sản phẩm cụ thể bằng ID
-    public function readOne($id) {
+    public function readOne($id)
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id);
@@ -34,7 +42,8 @@ class Product {
     }
 
     // Tạo sản phẩm mới
-    public function create($data) {
+    public function create($data)
+    {
         $query = "INSERT INTO " . $this->table_name . " SET name=:name, description=:description, price=:price, category_id=:category_id, created=:created";
         $stmt = $this->conn->prepare($query);
 
@@ -54,7 +63,8 @@ class Product {
     }
 
     // Cập nhật sản phẩm hiện có
-    public function update($data) {
+    public function update($data)
+    {
         $query = "UPDATE " . $this->table_name . " SET name=:name, description=:description, price=:price, category_id=:category_id WHERE id=:id";
         $stmt = $this->conn->prepare($query);
 
@@ -74,7 +84,8 @@ class Product {
     }
 
     // Xóa sản phẩm
-    public function delete($id) {
+    public function delete($id)
+    {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id);
@@ -87,4 +98,5 @@ class Product {
         }
     }
 }
+
 ?>

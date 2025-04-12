@@ -1,5 +1,8 @@
 <?php
-class Order {
+
+namespace models;
+class Order
+{
     private $conn;
     private $table = 'orders';
 
@@ -9,12 +12,14 @@ class Order {
     public $status;
     public $created_at;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
     // Tạo đơn hàng
-    public function create() {
+    public function create()
+    {
         $query = "INSERT INTO " . $this->table . " (user_id, total_price, status) VALUES (:user_id, :total_price, :status)";
         $stmt = $this->conn->prepare($query);
 
@@ -26,7 +31,8 @@ class Order {
     }
 
     // Cập nhật tổng tiền đơn hàng
-    public function updateTotalPrice() {
+    public function updateTotalPrice()
+    {
         $query = "UPDATE " . $this->table . " SET total_price = :total_price WHERE id = :id";
         $stmt = $this->conn->prepare($query);
 
