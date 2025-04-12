@@ -1,54 +1,29 @@
 <?php
-<<<<<<< HEAD
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-class Database
-{
-    private $host = "localhost";
+class Database {
+    private $host = 'localhost';
+    private $user = 'root';
+    private $pass = '';
+    private $dbname = 'laptop_shop';
+    private $conn;
 
-    private $dbname = "webshop_laptop";
-    private $username = "root";
-    private $password = "";
-    public $conn;
+    public function __construct() {
+        $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
 
-    public function connect()
-    {
-        $this->conn = null;
         try {
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->username, $this->password);
+            $this->conn = new PDO($dsn, $this->user, $this->pass);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "<h2 style='color: green;'>✅ Kết nối thành công!</h2>";
+            $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "<h2 style='color: red;'>❌ Kết nối thất bại!</h2>" . $e->getMessage();
+            throw new Exception("Kết nối thất bại: " . $e->getMessage());
         }
+    }
+
+    public function getConnection() {
         return $this->conn;
     }
 
-}
-$db = new Database();
-$conn = $db->connect();
-?>
-=======
-class Database {
-    private $host = "localhost"; // Máy chủ cơ sở dữ liệu
-    private $db_name = "webshop"; // Tên cơ sở dữ liệu
-    private $username = "root"; // Tên người dùng cơ sở dữ liệu
-    private $password = ""; // Mật khẩu cơ sở dữ liệu
-    public $conn; // Kết nối cơ sở dữ liệu
-
-    // Lấy kết nối cơ sở dữ liệu
-    public function getConnection() {
+    public function __destruct() {
         $this->conn = null;
-        try {
-            // Tạo kết nối PDO mới
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-            $this->conn->exec("set names utf8"); // Đặt mã hóa ký tự là UTF-8
-        } catch (PDOException $exception) {
-            // Xử lý lỗi kết nối
-            echo "Connection error: " . $exception->getMessage();
-        }
-        return $this->conn; // Trả về kết nối
     }
 }
 ?>
->>>>>>> c3b1610133799bc16ffad304466e9a37eba96176
