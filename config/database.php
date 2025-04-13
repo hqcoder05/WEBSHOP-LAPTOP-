@@ -2,7 +2,7 @@
 class Database {
     private $host = 'localhost';
     private $user = 'root';
-    private $pass = '';
+    private $pass = 'mysql123';
     private $dbname = 'laptop_shop';
     private $conn;
 
@@ -13,6 +13,7 @@ class Database {
             $this->conn = new PDO($dsn, $this->user, $this->pass);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            echo "Kết nối database thành công!";
         } catch (PDOException $e) {
             throw new Exception("Kết nối thất bại: " . $e->getMessage());
         }
