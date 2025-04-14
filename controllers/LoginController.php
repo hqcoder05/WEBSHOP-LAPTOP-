@@ -1,52 +1,33 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../models/User.php';
-
-use models\User;
-
-class LoginController
-{
-    public function handle()
-    {
+class LoginController {
+    public function index() {
+        // Kiểm tra nếu người dùng đã đăng nhập
         session_start();
-
-        // Nếu đã đăng nhập thì chuyển hướng về trang chủ
         if (isset($_SESSION['user'])) {
-            header("Location: index.php?page=home");
+            header('Location: ../views/user/home.php'); // Redirect về trang chủ nếu đã đăng nhập
             exit;
         }
 
+        // Nếu người dùng gửi dữ liệu form login
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'] ?? '';
-            $password = $_POST['password'] ?? '';
+            $username = $_POST['username'];
+            $password = $_POST['password'];
 
-            if (empty($username) || empty($password)) {
-                $error = "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.";
-                include __DIR__ . '/../views/user/login.php';
-                return;
-            }
+            $userModel = new User();
+            $result = $userModel->login($username, $password);
 
-            $db = new Database();
-            $conn = $db->getConnection();
-
-            $user = new User($conn);
-            $user->username = $username;
-            $user->password = $password;
-
-            $userData = $user->login();
-
-            if ($userData) {
-                $_SESSION['user'] = $userData;
-                header("Location: index.php?page=home");
+            if ($result['success']) {
+                // Lưu thông tin người dùng vào session
+                $_SESSION['user'] = $result['user'];
+                header('Location: ../views/user/home.php'); // Redirect về trang chủ
                 exit;
             } else {
-                $error = "Tên đăng nhập hoặc mật khẩu không đúng.";
-                include __DIR__ . '/../views/user/login.php';
+                $error = $result['message']; // Thông báo lỗi nếu đăng nhập thất bại
+                include 'views/user/login.php'; // Quay lại trang đăng nhập với lỗi
                 return;
             }
         }
 
-        // Hiển thị form đăng nhập nếu chưa gửi form
-        include __DIR__ . '/../views/user/login.php';
+        include 'views/user/login.php'; // Hiển thị form đăng nhập
     }
 }
