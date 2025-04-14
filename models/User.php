@@ -1,67 +1,55 @@
 <?php
-namespace models;
-
-class User
-{
+class User {
     private $conn;
-    private $table = "users";
 
-    public $id;
-    public $username;
-    public $password;
-    public $email;
-
-    public function __construct($db)
-    {
-        $this->conn = $db;
+    public function __construct() {
+        $db = new Database();
+        $this->conn = $db->getConnection();
     }
 
-    // ✅ Hàm kiểm tra đăng nhập
-    public function login()
-    {
-        $query = "SELECT * FROM " . $this->table . " WHERE username = :username LIMIT 1";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":username", $this->username);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            $user = $stmt->fetch(); // Mặc định FETCH_ASSOC từ Database class
-            // ✅ Kiểm tra mật khẩu
-            if (password_verify($this->password, $user['password'])) {
-                return $user;
-            }
+    // Đăng ký tài khoản mới
+    public function register($username, $password, $email) {
+        // Kiểm tra username đã tồn tại chưa
+        $checkUsername = $this->conn->prepare("SELECT id FROM users WHERE username = :username LIMIT 1");
+        $checkUsername->execute(['username' => $username]);
+        if ($checkUsername->fetch()) {
+            return ['success' => false, 'message' => 'Tên đăng nhập đã tồn tại'];
         }
-        return false;
+
+        // Kiểm tra email đã tồn tại chưa
+        $checkEmail = $this->conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
+        $checkEmail->execute(['email' => $email]);
+        if ($checkEmail->fetch()) {
+            return ['success' => false, 'message' => 'Email đã được sử dụng'];
+        }
+
+        // Thêm người dùng mới
+        $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
+        $stmt = $this->conn->prepare($sql);
+        $result = $stmt->execute([
+            'username' => $username,
+            'password' => password_hash($password, PASSWORD_BCRYPT),
+            'email' => $email
+        ]);
+
+        if ($result) {
+            return ['success' => true, 'message' => 'Đăng ký thành công'];
+        } else {
+            return ['success' => false, 'message' => 'Lỗi khi đăng ký'];
+        }
     }
 
-    // ✅ Hàm đăng ký tài khoản mới
-    public function register()
-    {
-        // Kiểm tra username đã tồn tại
-        $checkQuery = "SELECT id FROM " . $this->table . " WHERE username = :username LIMIT 1";
-        $checkStmt = $this->conn->prepare($checkQuery);
-        $checkStmt->bindParam(":username", $this->username);
-        $checkStmt->execute();
+    // Đăng nhập
+    public function login($email, $password) {
+        $sql = "SELECT * FROM users WHERE email = :email LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
 
-        if ($checkStmt->rowCount() > 0) {
-            return "Username đã tồn tại!";
+        if ($user && password_verify($password, $user['password'])) {
+            return ['success' => true, 'user' => $user];
         }
 
-        // ✅ Mã hóa mật khẩu
-        $hashedPassword = password_hash($this->password, PASSWORD_BCRYPT);
-
-        // Chèn user mới
-        $query = "INSERT INTO " . $this->table . " (username, password, email) VALUES (:username, :password, :email)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":password", $hashedPassword);
-        $stmt->bindParam(":email", $this->email);
-
-        if ($stmt->execute()) {
-            return true;
-        }
-
-        return false;
+        return ['success' => false, 'message' => 'Sai email hoặc mật khẩu'];
     }
 }
-?>
