@@ -1,5 +1,7 @@
 <?php include __DIR__ . '/../components/header.php'; ?>
 
+<link rel="stylesheet" href="../../wwwroot/css/user/login.css">
+
 <div class="login-container">
     <h2>Đăng nhập</h2>
 
@@ -7,7 +9,7 @@
         <p style="color:red;"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
 
-    <form method="POST" action="index.php?page=login">
+    <form method="POST" action="../../index.php?page=login">
         <div>
             <label for="username">Tên đăng nhập:</label><br>
             <input type="text" name="username" id="username" required>
@@ -21,7 +23,7 @@
         <button type="submit">Đăng nhập</button>
     </form>
 
-    <p>Chưa có tài khoản? <a href="index.php?page=register">Đăng ký</a></p>
+    <p>Chưa có tài khoản? <a href="../user/register.php">Đăng ký</a></p>
 </div>
 
 <?php include __DIR__ . '/../components/footer.php'; ?>
