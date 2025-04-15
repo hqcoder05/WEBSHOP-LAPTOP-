@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../../wwwroot/css/user/style.css" />
-    <a href="../../views/user/products.php">Xem sản phẩm</a>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <a href="../../pages/user/products.php">Xem sản phẩm</a>
 
     <title>Webshop Laptop</title>
   </head>
@@ -20,7 +20,7 @@
             <a href=""
               ><img
                 style="width: 40px"
-                src="../../wwwroot//images/logo1.jpg"
+                src="../../assets/images/logo/logo1.jpg"
                 alt="Logo Webshop Laptop"
             /></a>
           </li>
@@ -187,10 +187,10 @@
           <div class="slider-content-left">
             <div class="slider-content-left-top-container">
               <div class="slider-content-left-top">
-                <a href=""><img src="../../wwwroot//images/h1.jpg" alt="" /></a>
-                <a href=""><img src="../../wwwroot//images/h2.jpg" alt="" /></a>
-                <a href=""><img src="../../wwwroot//images/h3.jpg" alt="" /></a>
-                <a href=""><img src="../../wwwroot//images/h4.jpg" alt="" /></a>
+                <a href=""><img src="../../assets/images/h1.jpg" alt="" /></a>
+                <a href=""><img src="../../assets/images/h2.jpg" alt="" /></a>
+                <a href=""><img src="../../assets/images/h3.jpg" alt="" /></a>
+                <a href=""><img src="../../assets/images/products/products/h4.jpg" alt="" /></a>
               </div>
               <div class="slider-content-left-top-btn">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -207,16 +207,16 @@
           </div>
           <div class="slider-content-right">
             <li>
-              <a href=""><img src="../../wwwroot//images/h5.jpg" alt="" /></a>
+              <a href=""><img src="../../assets/images/products/h5.jpg" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../wwwroot//images/h6.jpg" alt="" /></a>
+              <a href=""><img src="../../assets/images/products/h6.jpg" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../wwwroot//images/h7.jpg" alt="" /></a>
+              <a href=""><img src="../../assets/images/products/h7.jpg" alt="" /></a>
             </li>
             <li>
-              <a href=""><img src="../../wwwroot//images/h8.jpg" alt="" /></a>
+              <a href=""><img src="../../assets/images/products/h8.jpg" alt="" /></a>
             </li>
           </div>
         </div>
@@ -226,11 +226,11 @@
       <div class="container">
         <img
           style="width: 100%; height: 71px; object-fit: cover"
-          src="../../wwwroot//images/lg.jpg"
+          src="../../assets/images/logo/lg.jpg"
           alt=""
         />
       </div>
     </section>
-    <script src="../../wwwroot//js/scripts.js"></script>
+    <script src="../../assets/js/scripts.js"></script>
   </body>
 </html>
