@@ -1,4 +1,3 @@
-<?php include __DIR__ . '/pages/components/header.php'; ?>
 <?php
 session_start();
 require_once 'includes/autoload.php';
