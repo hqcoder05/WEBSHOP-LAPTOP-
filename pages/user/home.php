@@ -10,9 +10,7 @@
     <title>Webshop Laptop</title>
   </head>
   <body>
-    <header>
-      <h1 style="text-align: center">WEBSHOP LAPTOP</h1>
-    </header>
+    <?php include_once ('../components/header.php')?>
     <nav>
       <div class="container">
         <ul>
