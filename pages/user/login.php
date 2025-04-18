@@ -15,5 +15,9 @@
 </form>
 
 <div id="loginMessage"></div>
+<div class="Login-signin">
+    <p>Chưa có tài khoản? <a href="#">Đăng ký</a>.</p>
+</div>
+
 
 <?php include_once '../components/footer.php'; ?>
