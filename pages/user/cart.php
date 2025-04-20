@@ -16,7 +16,7 @@ if (!isset($_SESSION['cart'])) {
             'name' => 'HP 15 fc0085AU R5 7430U (A6VV8PA)',
             'price' => 13490000,
             'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
+            'image' => 'images/hp-15-fc0085au.jpg'
         ],
         3 => [
             'id' => 3,
