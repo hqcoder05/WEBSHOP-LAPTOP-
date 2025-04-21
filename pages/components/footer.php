@@ -1,118 +1,119 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopLaptop - Footer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+.footer {
+  background: linear-gradient(to bottom, #414045 55%, #2f2e33 100%);
+  padding: 40px 0 20px;
+  color: #ccc;
+  font-family: Arial, sans-serif;
+  width: 96%;
+  margin:0 30px;
+}
 
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            padding: 40px 0;
-            margin-top: 20px;
-        }
+.footer_container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+.footer_grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-        .footer-section {
-            flex: 1;
-            min-width: 200px;
-        }
+.footer_col {
+  flex: 1 1 22%;
+  min-width: 200px;
+}
 
-        .footer-section h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #3498db;
-            padding-bottom: 5px;
-        }
+.footer h4 {
+  color: #f1f1f1;
+  font-size: 16px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #555;
+  padding-bottom: 5px;
+}
 
-        .footer-section p, .footer-section ul {
-            font-size: 14px;
-            line-height: 1.6;
-        }
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-        .footer-section ul {
-            list-style: none;
-        }
+.footer ul li {
+  margin-bottom: 8px;
+}
 
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
+.footer ul li a,
+.footer ul li span {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+}
 
-        .footer-section ul li a {
-            color: #ecf0f1;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+.footer ul li a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
 
-        .footer-section ul li a:hover {
-            color: #3498db;
-        }
+.copy_right {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 13px;
+  color: #999;
+}
+</style>
 
-        .footer-section iframe {
-            width: 100%;
-            height: 150px;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 15px 0;
-            background-color: #1a252f;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-<footer>
-    <div class="footer-container">
-        <!-- Thông tin liên hệ -->
-        <div class="footer-section">
-            <h3>Liên Hệ</h3>
-            <p>Địa chỉ: 70 Tô Ký, Tân Chánh Hiệp, Q12, TP. HCM</p>
-            <p>Email: shoplaptop@fakemail.com</p>
-            <p>Hotline: 0909 123 456</p>
+<div class="footer">
+  <div class="footer_container">
+    <div class="footer_grid">
+      <div class="footer_col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="#">Nội dung</a></li>
+          <li><a href="#">Dịch vụ khách hàng</a></li>
+          <li><a href="#">Tìm kiếm nâng cao</a></li>
+          <li><a href="#">Đơn hàng và trả hàng</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer_col">
+        <h4>Tại sao chọn chúng tôi</h4>
+        <ul>
+          <li><a href="#">Nội dung</a></li>
+          <li><a href="#">Dịch vụ khách hàng</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Sơ đồ trang</a></li>
+          <li><a href="#">Từ khóa tìm kiếm</a></li>
+        </ul>
+      </div>
+      <div class="footer_col">
+        <h4>Tài khoản của tôi</h4>
+        <ul>
+          <li><a href="#">Đăng nhập</a></li>
+          <li><a href="#">Xem giỏ hàng</a></li>
+          <li><a href="#">Danh sách yêu thích</a></li>
+          <li><a href="#">Theo dõi đơn hàng</a></li>
+          <li><a href="#">Trợ giúp</a></li>
+        </ul>
+      </div>
+      <div class="footer_col">
+        <h4>Liên hệ</h4>
+        <ul>
+          <li><span>+88-01713458599</span></li>
+          <li><span>+88-01813458552</span></li>
+        </ul>
+        <div class="social-icons">
+          <h4>Theo dõi chúng tôi</h4>
         </div>
-
-        <!-- Liên kết nhanh -->
-        <div class="footer-section">
-            <h3>Liên Kết Nhanh</h3>
-            <ul>
-                <li><a href="index.php">Trang chủ</a></li>
-                <li><a href="products.php">Sản phẩm</a></li>
-                <li><a href="about.php">Giới thiệu</a></li>
-                <li><a href="contact.php">Liên hệ</a></li>
-            </ul>
-        </div>
-
-        <!-- Bản đồ -->
-        <div class="footer-section">
-            <h3>Vị Trí Cửa Hàng</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.096319582687!2d105.84914931540102!3d21.02851188599719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4b7e8e8d5d%3A0x4c4a1d9e6d7e3c48!2sHoan%20Kiem%20Lake!5e0!3m2!1sen!2s!4v1696931234567!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
-        </div>
+         <!-- Thêm -->
+      </div>
     </div>
-
-    <!-- Bản quyền -->
-    <div class="footer-bottom">
-        <p>&copy; 2025 ShopLaptop. All Rights Reserved.</p>
+    <div class="copy_right">
+      <p>© 2025 Website mẫu. Bản quyền thuộc về nhóm phát triển</p>
     </div>
-</footer>
-</body>
-</html>
+  </div>
+</div>
+
