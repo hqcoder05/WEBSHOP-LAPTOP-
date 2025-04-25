@@ -3,78 +3,78 @@ session_start();
 
 // Giả lập lấy dữ liệu từ database thông qua API
 if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [
-        1 => [
-            'id' => 1,
-            'name' => 'Asus Vivobook Go 15 E1504FA R5 7520U (NJ776W)',
-            'price' => 12990000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        2 => [
-            'id' => 2,
-            'name' => 'HP 15 fc0085AU R5 7430U (A6VV8PA)',
-            'price' => 13490000,
-            'quantity' => 1,
-            'image' => 'images/hp-15-fc0085au.jpg'
-        ],
-        3 => [
-            'id' => 3,
-            'name' => 'Dell Inspiron 15 3520 i5 1235U (N5I5057W1)',
-            'price' => 16490000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        4 => [
-            'id' => 4,
-            'name' => 'Acer Aspire 7 A715 76 53PJ i5 12450H (NH.QGESV.007)',
-            'price' => 13790000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        5 => [
-            'id' => 5,
-            'name' => 'MacBook Air 13 inch M4 16GB/256GB',
-            'price' => 26990000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        6 => [
-            'id' => 6,
-            'name' => 'HP 15 fd0234TU i5 1334U (9Q969PA)',
-            'price' => 15890000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        7 => [
-            'id' => 7,
-            'name' => 'Asus Vivobook 15 OLED A1505ZA i5 12500H (MA415W)',
-            'price' => 16690000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        8 => [
-            'id' => 8,
-            'name' => 'MacBook Air 13 inch M1 8GB/256GB',
-            'price' => 17090000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        9 => [
-            'id' => 9,
-            'name' => 'Acer Aspire 3 A314 42P R3B3 R7 5700U (NX.KSFSV.001)',
-            'price' => 12590000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ],
-        10 => [
-            'id' => 10,
-            'name' => 'Lenovo IdeaPad Slim 3 15IRH10 i5 13420H (83K1000HVN)',
-            'price' => 16490000,
-            'quantity' => 1,
-            'image' => 'images/asus-vivobook-go-15.jpg'
-        ]
-    ];
+  $_SESSION['cart'] = [
+    1 => [
+        'id' => 1,
+        'name' => 'Asus Vivobook Go 15 E1504FA R5 7520U (NJ776W)',
+        'price' => 12990000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    2 => [
+        'id' => 2,
+        'name' => 'HP 15 fc0085AU R5 7430U (A6VV8PA)',
+        'price' => 13490000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/hp-15-fc0085au.jpg'
+    ],
+    3 => [
+        'id' => 3,
+        'name' => 'Dell Inspiron 15 3520 i5 1235U (N5I5057W1)',
+        'price' => 16490000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    4 => [
+        'id' => 4,
+        'name' => 'Acer Aspire 7 A715 76 53PJ i5 12450H (NH.QGESV.007)',
+        'price' => 13790000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    5 => [
+        'id' => 5,
+        'name' => 'MacBook Air 13 inch M4 16GB/256GB',
+        'price' => 26990000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    6 => [
+        'id' => 6,
+        'name' => 'HP 15 fd0234TU i5 1334U (9Q969PA)',
+        'price' => 15890000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    7 => [
+        'id' => 7,
+        'name' => 'Asus Vivobook 15 OLED A1505ZA i5 12500H (MA415W)',
+        'price' => 16690000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    8 => [
+        'id' => 8,
+        'name' => 'MacBook Air 13 inch M1 8GB/256GB',
+        'price' => 17090000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    9 => [
+        'id' => 9,
+        'name' => 'Acer Aspire 3 A314 42P R3B3 R7 5700U (NX.KSFSV.001)',
+        'price' => 12590000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ],
+    10 => [
+        'id' => 10,
+        'name' => 'Lenovo IdeaPad Slim 3 15IRH10 i5 13420H (83K1000HVN)',
+        'price' => 16490000,
+        'quantity' => 1,
+        'image' => '../../assets/images/laptop/asus-vivobook-go-15.jpg'
+    ]
+];
 }
 
 // Xử lý cập nhật số lượng
@@ -115,26 +115,7 @@ if (isset($_GET['remove'])) {
     <script src="../scripts/cart.js"></script>
   </head>
   <body>
-    <div class="contain-to-grid">
-      <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-          <li class="name">
-            <h1><a href="/dashboard/index.html">Shop Online</a></h1>
-          </li>
-        </ul>
-        <section class="top-bar-section">
-          <!-- Right Nav Section -->
-          <ul class="right">
-            <li class="">
-              <a href="/applications.php">Sản phẩm</a>
-            </li>
-            <li class="active"><a href="/cart.php">Giỏ hàng <span class="cart-count"><?php echo count($_SESSION['cart']); ?></span></a></li>
-            <li class=""><a href="/about.php">Giới thiệu</a></li>
-            <li class=""><a href="/contact.php">Liên hệ</a></li>
-          </ul>
-        </section>
-      </nav>
-    </div>
+    <?php include '../components/header.php'; ?>
     <div id="wrapper">
       <div class="hero">
         <div class="row">
@@ -217,7 +198,7 @@ if (isset($_GET['remove'])) {
       </div>
     </div>
     
-    <?php include './footer.php'; ?>
+    <?php include '../components/footer.php'; ?>
     
   </body>
 </html>
