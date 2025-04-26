@@ -87,7 +87,7 @@
         <div class="footer-section">
             <h3>Liên Hệ</h3>
             <p>Địa chỉ: 70 Tô Ký, Tân Chánh Hiệp, Q12, TP. HCM</p>
-            <p>Email: shoplaptop@fakemail.com</p>
+            <p>Email: shoplaptop@fake.com</p>
             <p>Hotline: 0909 123 456</p>
         </div>
 
@@ -95,7 +95,7 @@
         <div class="footer-section">
             <h3>Liên Kết Nhanh</h3>
             <ul>
-                <li><a href="index.php">Trang chủ</a></li>
+                <li><a href="../../index.php">Trang chủ</a></li>
                 <li><a href="products.php">Sản phẩm</a></li>
                 <li><a href="about.php">Giới thiệu</a></li>
                 <li><a href="contact.php">Liên hệ</a></li>
@@ -105,7 +105,7 @@
         <!-- Bản đồ -->
         <div class="footer-section">
             <h3>Vị Trí Cửa Hàng</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.096319582687!2d105.84914931540102!3d21.02851188599719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4b7e8e8d5d%3A0x4c4a1d9e6d7e3c48!2sHoan%20Kiem%20Lake!5e0!3m2!1sen!2s!4v1696931234567!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.28721634569!2d106.61554297485836!3d10.865745489288534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b2a11844fb9%3A0xbed3d5f0a6d6e0fe!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBHaWFvIFRow7RuZyBW4bqtbiBU4bqjaSBUaMOgbmggUGjhu5EgSOG7kyBDaMOtIE1pbmggKFVUSCkgLSBDxqEgc-G7nyAz!5e0!3m2!1svi!2s!4v1744945559874!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 

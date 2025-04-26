@@ -1,19 +1,16 @@
-<?php include_once '../../includes/autoload.php'; ?>
-<?php include_once '../../pages/components/header.php'; ?>
-<script src="../../assets/js/jquery-3.7.1.js"></script>
-<script src="../../assets/js/user_login.js"></script>
+<?php session_start(); ?>
+<form action="../../includes/logic/login_function.php" method="POST">
+    <h2>Đăng nhập</h2>
 
-<h2>Đăng nhập</h2>
-<form id="loginForm">
-    <label for="username">Tên đăng nhập:</label>
-    <input type="text" name="username" id="username" required>
+    <?php if (!empty($_SESSION['error'])): ?>
+        <p style="color:red"><?= $_SESSION['error']; unset($_SESSION['error']); ?></p>
+    <?php endif; ?>
+    <label>Tài khoản:</label><br/>
+    <input type="text" name="username"><br/>
 
-    <label for="password">Mật khẩu:</label>
-    <input type="password" name="password" id="password" required>
+    <label>Mật khẩu:</label><br/>
+    <input type="password" name="password"><br/>
 
     <button type="submit">Đăng nhập</button>
+    <a>Chưa có tài khoản?</a> <a href="register.php">Tạo tài khoản mới</a>
 </form>
-
-<div id="loginMessage"></div>
-
-<?php include_once '../components/footer.php'; ?>

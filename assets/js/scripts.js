@@ -60,3 +60,10 @@ function imgAuto() {
   //onsole.log(index);
 }
 setInterval(imgAuto, 5000);
+
+document.querySelector('.dropdown-toggle').addEventListener('click', function(event) {
+  event.preventDefault();
+  const menu = document.querySelector('.dropdown-menu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+});
+
