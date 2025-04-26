@@ -1,65 +1,53 @@
 <?php
 
-// Kết nối cơ sở dữ liệu
-require_once '../../config/database.php';
-require_once '../../models/Product.php';
-
-/**
- * Lấy danh sách tất cả sản phẩm
- * @return array
- */
-function getAllProducts() {
-    global $conn;
-
-    $sql = "SELECT * FROM products";
-    $result = $conn->query($sql);
-
-    return $result->fetch_all(MYSQLI_ASSOC);
+// Kết nối tới cơ sở dữ liệu
+function getDatabaseConnection() {
+    $host = 'localhost';
+    $dbname = 'webshop';
+    $username = 'root';
+    $password = '';
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
+    } catch (PDOException $e) {
+        die("Kết nối thất bại: " . $e->getMessage());
+    }
 }
 
-/**
- * Thêm sản phẩm mới
- * @param Product $product
- * @return bool
- */
-function createProduct($product) {
-    global $conn;
-
-    $sql = "INSERT INTO products (name, description, price, stock) VALUES (?, ?, ?, ?)";
+// Tạo sản phẩm mới
+function createProduct($name, $price, $description) {
+    $conn = getDatabaseConnection();
+    $sql = "INSERT INTO products (name, price, description) VALUES (:name, :price, :description)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssdi", $product->name, $product->description, $product->price, $product->stock);
-
-    return $stmt->execute();
+    $stmt->execute(['name' => $name, 'price' => $price, 'description' => $description]);
+    return "Sản phẩm mới đã được thêm.";
 }
 
-/**
- * Cập nhật sản phẩm
- * @param Product $product
- * @return bool
- */
-function updateProduct($product) {
-    global $conn;
-
-    $sql = "UPDATE products SET name = ?, description = ?, price = ?, stock = ? WHERE id = ?";
+// Đọc thông tin sản phẩm
+function readProduct($id) {
+    $conn = getDatabaseConnection();
+    $sql = "SELECT * FROM products WHERE id = :id";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssdii", $product->name, $product->description, $product->price, $product->stock, $product->id);
-
-    return $stmt->execute();
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-/**
- * Xóa sản phẩm
- * @param int $id
- * @return bool
- */
+// Cập nhật sản phẩm
+function updateProduct($id, $name, $price, $description) {
+    $conn = getDatabaseConnection();
+    $sql = "UPDATE products SET name = :name, price = :price, description = :description WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(['id' => $id, 'name' => $name, 'price' => $price, 'description' => $description]);
+    return "Sản phẩm đã được cập nhật.";
+}
+
+// Xóa sản phẩm
 function deleteProduct($id) {
-    global $conn;
-
-    $sql = "DELETE FROM products WHERE id = ?";
+    $conn = getDatabaseConnection();
+    $sql = "DELETE FROM products WHERE id = :id";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-
-    return $stmt->execute();
+    $stmt->execute(['id' => $id]);
+    return "Sản phẩm đã được xóa.";
 }
-
 ?>
