@@ -4,34 +4,36 @@
 include_once 'product_functions.php';
 
 // Tạo đơn hàng mới
-function createOrder($userId, $productId, $quantity, $totalPrice) {
+function createOrder($userId, $cartItems, $totalPrice) {
     $conn = getDatabaseConnection();
-    $sql = "INSERT INTO orders (user_id, product_id, quantity, total_price) VALUES (:user_id, :product_id, :quantity, :total_price)";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([
-        'user_id' => $userId,
-        'product_id' => $productId,
-        'quantity' => $quantity,
-        'total_price' => $totalPrice
-    ]);
-    return "Đơn hàng mới đã được tạo.";
-}
+    $conn->beginTransaction();
+    try {
+        // Lưu thông tin đơn hàng
+        $sql = "INSERT INTO orders (user_id, total_price, created_at) VALUES (:user_id, :total_price, NOW())";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'user_id' => $userId,
+            'total_price' => $totalPrice
+        ]);
+        $orderId = $conn->lastInsertId();
 
-// Cập nhật trạng thái đơn hàng
-function updateOrderStatus($orderId, $status) {
-    $conn = getDatabaseConnection();
-    $sql = "UPDATE orders SET status = :status WHERE id = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['id' => $orderId, 'status' => $status]);
-    return "Trạng thái đơn hàng đã được cập nhật.";
-}
+        // Lưu chi tiết đơn hàng
+        $sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (:order_id, :product_id, :quantity, :price)";
+        $stmt = $conn->prepare($sql);
+        foreach ($cartItems as $item) {
+            $stmt->execute([
+                'order_id' => $orderId,
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price']
+            ]);
+        }
 
-// Lấy thông tin đơn hàng
-function getOrderDetails($orderId) {
-    $conn = getDatabaseConnection();
-    $sql = "SELECT * FROM orders WHERE id = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['id' => $orderId]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+        $conn->commit();
+        return "Đơn hàng đã được tạo thành công với ID: $orderId";
+    } catch (Exception $e) {
+        $conn->rollBack();
+        return "Lỗi khi tạo đơn hàng: " . $e->getMessage();
+    }
 }
 ?>
