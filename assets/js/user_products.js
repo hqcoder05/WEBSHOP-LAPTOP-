@@ -34,3 +34,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchButton = document.getElementById('searchButton');
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            console.log('Search button clicked');
+            // Thêm logic tìm kiếm nếu cần (ví dụ: validate input)
+        });
+    }
+});
