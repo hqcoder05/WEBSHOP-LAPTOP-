@@ -1,168 +1,191 @@
 <?php
-  include '../../pages/components/header.php';
-  include '../../pages/components/slider.php';
+session_start();
+require_once __DIR__ . '/../../includes/db/database.php';
+require_once __DIR__ . '/../../includes/logic/product_functions.php';
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$items_per_page = 12;
+$offset = ($page - 1) * $items_per_page;
+
+$category_id = isset($_GET['category']) ? (int)$_GET['category'] : null;
+$search_keyword = isset($_GET['search']) ? trim($_GET['search']) : null;
+
+$categories = getAllCategories();
+
+if ($category_id !== null && $category_id > 0) {
+    $products = getProductsByCategory($category_id, $items_per_page, $offset);
+    $total_products = countProducts($category_id);
+} elseif ($search_keyword !== null && $search_keyword !== '') {
+    $products = searchProducts($search_keyword);
+    $total_products = count($products);
+    $products = array_slice($products, $offset, $items_per_page);
+} else {
+    $products = getAllProducts($items_per_page, $offset);
+    $total_products = countProducts();
+}
+
+$total_pages = ceil($total_products / $items_per_page);
+
+$page_title = "Tất cả sản phẩm";
+if ($category_id !== null && $category_id > 0) {
+    foreach ($categories as $cat) {
+        if ($cat['id'] == $category_id) {
+            $page_title = "Sản phẩm: " . $cat['name'];
+            break;
+        }
+    }
+} elseif ($search_keyword !== null && $search_keyword !== '') {
+    $page_title = "Kết quả tìm kiếm: " . htmlspecialchars($search_keyword);
+}
+
+require_once __DIR__ . '/../components/header.php';
+ 
 ?>
-<style>
-  .main {
-     width: 100%;
-    padding: 0 30px;
-    box-sizing: border-box;
-  }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    .section-group {
-      overflow: hidden;
-    }
-
-    .product-card {
-      width: 22%;
-      float: left;
-      margin: 1%;
-      padding: 1.5%;
-      text-align: center;
-      box-shadow: 0 0 3px rgb(150, 150, 150);
-      position: relative;
-    }
-
-    .product-card img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .product-card h2 {
-      color: #cc3636;
-      font-size: 18px;
-      margin: 10px 0;
-    }
-
-    .product-card p {
-      font-size: 0.875em;
-      color: #333;
-      margin: 5px 0;
-    }
-
-    .product-card .price {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .product-card .button {
-      margin-top: 10px;
-    }
-
-    .product-card .button a {
-      display: inline-block;
-      padding: 7px 20px;
-      font-size: 14px;
-      text-decoration: none;
-      border: 1px solid #c1c1c1;
-      border-radius: 3px;
-      transition: all 0.3s ease;
-    }
-
-    .product-card .button a:hover {
-      background-color: #e8e8e8;
-      color: #70389c;
-    }
-
-    .content {
-      width: 100%;
-      padding: 20px;
-    }
-
-    .heading h3 {
-      font-size: 20px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .clear {
-      clear: both;
-    }
-  </style>
-
-<div class="main">
-  <div class="content">
-    <div class="content_top">
-      <div class="heading"><h3>LAPTOP MỚI NHẤT</h3></div>
-      <div class="clear"></div>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= htmlspecialchars($page_title) ?></title>
+    <link href="../../assets/css/user_products.css" rel="stylesheet"/>
+    <script src="../../assets/js/jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<div class="container mt-4 mb-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Danh mục</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item <?php echo ($category_id === null) ? 'active' : ''; ?>">
+                            <a href="/Laptop_Shop - Copy/pages/user/products.php" class="text-decoration-none <?php echo ($category_id === null) ? 'text-white' : 'text-dark'; ?>">Tất cả sản phẩm</a>
+                        </li>
+                        <?php foreach ($categories as $category): ?>
+                            <li class="list-group-item <?php echo ($category_id == $category['id']) ? 'active' : ''; ?>">
+                                <a href="/Laptop_Shop - Copy/pages/user/products.php?category=<?php echo $category['id']; ?>" class="text-decoration-none <?php echo ($category_id == $category['id']) ? 'text-white' : 'text-dark'; ?>">
+                                    <?php echo htmlspecialchars($category['name']); ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Tìm kiếm</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/Laptop_Shop - Copy/pages/user/products.php" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Tìm kiếm sản phẩm..." value="<?php echo htmlspecialchars($search_keyword ?? ''); ?>">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Cột 2: Banner -->
+            <div class="col-lg-3">
+            <?php
+           include '../../pages/components/banner.php';
+            ?>
+        </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><?php echo htmlspecialchars($page_title); ?></h2>
+                <span>Hiển thị <?php echo min($total_products, $items_per_page); ?> / <?php echo $total_products; ?> sản phẩm</span>
+            </div>
+            <?php if (empty($products)): ?>
+                <div class="alert alert-info">
+                    Không tìm thấy sản phẩm phù hợp với từ khóa "<?= htmlspecialchars($search_keyword ?? '') ?>".
+                </div>
+            <?php else: ?>
+                <div class="product-grid">
+                    <?php foreach ($products as $product): ?>
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <img src="<?php echo !empty($product['image']) ? htmlspecialchars($product['image']) : '/Laptop_Shop - Copy/assets/images/products/default.jpg'; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title product-title">
+                                    <a href="/Laptop_Shop - Copy/pages/user/product_detail.php?id=<?php echo $product['id']; ?>" class="text-decoration-none text-dark">
+                                        <?php echo htmlspecialchars($product['name']); ?>
+                                    </a>
+                                </h5>
+                                <p class="card-text product-category">
+                                    <small class="text-muted">
+                                        <a href="/Laptop_Shop - Copy/pages/user/products.php?category=<?php echo $product['category_id']; ?>" class="text-decoration-none text-muted">
+                                            <?php echo htmlspecialchars($product['category_name']); ?>
+                                        </a>
+                                    </small>
+                                </p>
+                                <p class="card-text product-price fw-bold text-danger">
+                                    <?php echo formatPrice($product['price']); ?>
+                                </p>
+                                <p class="card-text product-stock">
+                                    <small class="<?php echo $product['stock'] > 0 ? 'text-success' : 'text-danger'; ?>">
+                                        <?php echo $product['stock'] > 0 ? 'Còn hàng' : 'Hết hàng'; ?>
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between">
+                                    <a href="/Laptop_Shop - Copy/pages/user/product_detail.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-primary">Chi tiết</a>
+                                    <?php if ($product['stock'] > 0): ?>
+                                        <button class="btn btn-sm btn-primary add-to-cart" data-product-id="<?php echo $product['id']; ?>">Thêm vào giỏ</button>
+                                    <?php else: ?>
+                                        <button class="btn btn-sm btn-secondary" disabled>Hết hàng</button>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php if ($total_pages > 1): ?>
+                    <nav aria-label="Điều hướng trang">
+                        <ul class="pagination justify-content-center mt-4">
+                            <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="<?php
+                                $params = $_GET;
+                                $params['page'] = $page - 1;
+                                echo '/Laptop_Shop - Copy/pages/user/products.php?' . http_build_query($params);
+                                ?>" aria-label="Trước">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                                    <a class="page-link" href="<?php
+                                    $params = $_GET;
+                                    $params['page'] = $i;
+                                    echo '/Laptop_Shop - Copy/pages/user/products.php?' . http_build_query($params);
+                                    ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                            <li class="page-item <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="<?php
+                                $params = $_GET;
+                                $params['page'] = $page + 1;
+                                echo '/Laptop_Shop - Copy/pages/user/products.php?' . http_build_query($params);
+                                ?>" aria-label="Tiếp">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
-
-    <div class="section-group">
-      <div class="product-card">
-        <a href="product_detail-3.php"><img src="../../assets/images/products/fic1.png" style="width:180px; height:200px;" alt="Lenovo" /></a>
-        <h2>Lenovo đơn giản.</h2>
-        <p>Cảm ơn quý khách.</p>
-        <p><span class="price">$505.22</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-
-      <div class="product-card">
-        <a href="product_detail-2.php"><img src="../../assets/images/products/fic2.jpg" style="width:200px; height:200px;" alt="Acer" /></a>
-        <h2>Acer đơn giản.</h2>
-        <p>Cảm ơn quý khách.</p>
-        <p><span class="price">$620.87</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-
-      <div class="product-card">
-        <a href="product_detail-4.php"><img src="../../assets/images/products/fic3.jpg" style="width:180px; height:200px;" alt="Macbook" /></a>
-        <h2>Macbook đơn giản.</h2>
-        <p>Cảm ơn quý khách.</p>
-        <p><span class="price">$220.97</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-
-      <div class="product-card">
-        <img src="../../assets/images/products/fic4.png" style="width:180px; height:200px;" alt="Asus" />
-        <h2>Asus Vivobook đơn giản</h2>
-        <p>Cảm ơn quý khách.</p>
-        <p><span class="price">$415.54</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-    </div>
-
-    <div class="content_bottom">
-      <div class="heading"><h3>PC, MÀN HÌNH, PHỤ KIỆN MỚI NHẤT</h3></div>
-      <div class="clear"></div>
-    </div>
-
-    <div class="section-group">
-      <div class="product-card">
-        <a href="product_detail-3.php"><img src="../../assets/images/products/new_fic1.jpg" style="width:230px; height:190px;" alt="Màn hình" /></a>
-        <h2>Màn hình đơn giản.</h2>
-        <p><span class="price">$403.66</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-
-      <div class="product-card">
-        <a href="product_detail-4.php"><img src="../../assets/images/products/new_fic2.jpg" style="width:200px; height:190px;" alt="Máy in" /></a>
-        <h2>Máy in đơn giản.</h2>
-        <p><span class="price">$621.75</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-
-      <div class="product-card">
-        <a href="product_detail-2.php"><img src="../../assets/images/products/new_fic3.jpg" style="width:200px; height:190px;" alt="Màn hình PC" /></a>
-        <h2>Màn hình PC đơn giản.</h2>
-        <p><span class="price">$428.02</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-
-      <div class="product-card">
-        <img src="../../assets/images/products/new_fic4.jpg" style="width:230px; height:190px;" alt="Màn hình Gaming" />
-        <h2>Màn hình Gaming đơn giản.</h2>
-        <p><span class="price">$457.88</span></p>
-        <div class="button"><a href="../../pages/user/product_detail.php">Chi tiết</a></div>
-      </div>
-    </div>
-  </div>
 </div>
-<?php
-include('../../pages/components/footer.php');
+<script src="/Laptop_Shop - Copy/assets/js/user_products.js"></script>
+<?php require_once __DIR__ . '/../components/footer.php'; 
 ?>
-
+</body>
+</html>
