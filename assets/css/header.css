@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  background-color: #e74c3c; /* Red background */
+  color: white;
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header:hover {
+  background-color: #c0392b; /* Darker red on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.shop-name {
+  font-size: 32px;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+
+.shop-name a {
+  color: #003092;
+  text-decoration: none;
+}
+
+.shop-name:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.login-button a {
+  padding: 6px 12px;
+  border: 2px solid white;
+  border-radius: 20px;
+  color: #ffff;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.login-button a:hover {
+  background: white;
+  color: #c0392b;
+}
+
+nav ul li a:hover {
+  color: #3498db;
+}
+
+.search-bar input {
+  padding: 10px;
+  border: 2px solid #ffff;
+  border-radius: 10px;
+  outline: none;
+  width: 200px;
+  transition: border-color 0.3s;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.search-bar button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Ẩn dropdown-menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 200px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.dropdown-menu li {
+  padding: 8px;
+}
+
+.dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f1f1f1;
+}
