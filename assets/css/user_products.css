@@ -232,3 +232,67 @@ body {
     max-width: 100%;
   }
 }
+
+/*card-footer, card-text*/
+.card-title {
+  font-size: 20px;
+}
+
+.card-text {
+  color: #0056b3;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-footer {
+  background-color: #ffffff;
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+
+.card-footer .d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-footer .btn {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+/* Nút "Chi tiết" */
+.card-footer .btn-outline-primary {
+  color: #007bff;
+  border: 1px solid #007bff;
+  background-color: transparent;
+}
+
+.card-footer .btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Nút "Thêm vào giỏ" */
+.card-footer .btn-primary {
+  color: #fff;
+  background-color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.card-footer .btn-primary:hover {
+  background-color: #218838;
+  border-color: #218838;
+}
+
+/* Nút "Hết hàng" */
+.card-footer .btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  cursor: not-allowed;
+  color: white;
+}
