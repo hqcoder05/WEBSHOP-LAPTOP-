@@ -1,0 +1,234 @@
+/* user_products.css */
+@media (min-width: 992px) {
+  .col-lg-3 {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+/* Định dạng cho các thẻ card */
+.card {
+  border: 2px solid #dee2e6;
+  width: 300px;
+  margin: 0 auto;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  transition: transform 0.2s;
+  width: 300px;
+  height: 334px;
+}
+
+/* Hiệu ứng hover cho thẻ card */
+.card:hover {
+  transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+/* Định dạng cho tiêu đề card */
+.card-header {
+  background-color: white;
+  min-height: 30px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Định dạng cho danh sách */
+.list-group-item {
+  border: none;
+}
+
+/* Định dạng cho các liên kết trong danh sách */
+.list-group-item a {
+  display: block;
+  padding: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* Hiệu ứng hover cho liên kết */
+.list-group-item a:hover {
+  background-color: #e9ecef;
+}
+
+/* Định dạng cho nút tìm kiếm */
+.input-group .form-control {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.input-group .btn {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* Định dạng cho container chứa các thẻ card */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Định dạng cho nhóm input */
+.input-group {
+  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Định dạng cho ô input */
+.input-group .form-control {
+  border: 2px solid #007bff;
+  border-radius: 0.25rem;
+  padding: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+/* Hiệu ứng khi ô input được focus */
+.input-group .form-control:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none; /* Bỏ viền mặc định */
+}
+
+/* Định dạng cho nút tìm kiếm */
+.input-group .btn {
+  background-color: #007bff; /* Màu nền nút */
+  border: none; /* Bỏ đường viền */
+  padding: 5px 10px; /* Khoảng cách bên trong */
+  font-size: 16px; /* Kích thước chữ */
+  color: white; /* Màu chữ */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển tiếp cho màu nền */
+}
+
+/* Hiệu ứng khi hover nút tìm kiếm */
+.input-group .btn:hover {
+  background-color: #0056b3; /* Đổi màu nền khi hover */
+}
+
+/* Hiệu ứng khi nút tìm kiếm được focus */
+.input-group .btn:focus {
+  outline: none; /* Bỏ viền mặc định */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Đổ bóng nhẹ */
+}
+
+/* General improvements */
+body {
+  background-color: #f5f5f5; /* Softer background for better contrast */
+  font-family: "Roboto", Arial, sans-serif;
+  color: #333; /* Neutral text color for readability */
+  line-height: 1.6;
+}
+
+/* Container for product grid */
+.product-grid {
+  display: flex; /* Sử dụng flexbox để hiển thị hàng ngang */
+  flex-wrap: wrap; /* Cho phép các sản phẩm xuống dòng khi không đủ chỗ */
+  gap: 10px; /* Khoảng cách giữa các sản phẩm */
+  margin-top: 20px;
+  justify-content: space-between; /* Căn giữa các sản phẩm */
+}
+
+/* Product Cards */
+.product-card {
+  border: 1px solid #e0e0e0; /* Subtle border for separation */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff; /* Clean white background */
+  flex: 1 1 calc(25% - 20px); /* Chiều rộng sản phẩm, 4 sản phẩm trên hàng */
+  max-width: calc(25% - 20px); /* Đảm bảo không vượt quá 4 sản phẩm trên hàng */
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Enhanced hover effect */
+}
+
+.product-image-container {
+  height: 200px; /* Fixed height for consistency */
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image-container img {
+  transform: scale(1.1); /* Zoom effect on hover */
+}
+
+.card-body {
+  padding: 15px; /* Adjust padding for better spacing */
+  flex-grow: 1; /* Đẩy nội dung xuống dưới nếu cần */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+  height: 48px; /* Adjust height for consistency */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-title a:hover {
+  color: var(--primary); /* Highlight on hover */
+}
+
+.product-price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--danger);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.product-category a {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.product-category a:hover {
+  color: var(--primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .product-card {
+    flex: 1 1 calc(33.33% - 20px); /* 3 cột trên màn hình vừa */
+    max-width: calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    flex: 1 1 calc(50% - 20px); /* 2 cột trên màn hình nhỏ */
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 576px) {
+  .product-card {
+    flex: 1 1 100%; /* 1 cột trên màn hình rất nhỏ */
+    max-width: 100%;
+  }
+}
