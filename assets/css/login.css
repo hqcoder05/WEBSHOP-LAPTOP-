@@ -1,63 +1,97 @@
+/* assets/css/login.css */
+
+/* Bỏ chỉnh body "display:flex" luôn */
 body {
-  background: url("../images/background.jpeg") no-repeat center center fixed;
-  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
 }
 
-#wrapper {
-  min-height: 100vh;
+/* Thêm chỉnh riêng cho trang login */
+.login-page {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#form-login {
-  max-width: 400px;
-  background: rgba(0, 0, 0, 0.8);
-  flex-grow: 1;
-  padding: 30px 30px 40px;
-  box-shadow: 0px 0px 17px 2px rgba(225, 255, 255, 0.8);
-}
 
-.form-heading {
-  font-size: 25px;
-  color: #f5f5f5;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.form-group {
-  border-bottom: 1px solid #fff;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  display: flex;
-}
-.form-group i {
-  color: #fff;
-  font-size: 14px;
-}
-.form-input {
-  background: transparent;
-  border: 0;
-  outline: 0;
-  color: #f5f5f5;
-  flex-grow: 1;
-}
-
-.form-input::placeholder {
-  color: #f5f5f5;
-}
-
-.form-submit {
-  background: transparent;
-  border: 1px solid black;
-  color: #fff;
+.container {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   width: 100%;
-  text-transform: uppercase;
-  padding: 6px 10px;
-  transition: 0.25s ease-in-out;
-  margin-top: 30px;
+  max-width: 400px;
+  text-align: center;
 }
 
-.form-submit:hover {
-  border: 1px solid #54a0ff;
+h2 {
+  margin-bottom: 24px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 6px;
+  text-align: left;
+  color: #555;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #74ebd5;
+  outline: none;
+}
+
+button {
+  padding: 12px;
+  background-color: #74ebd5;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #66d3c2;
+}
+
+p {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+p a {
+  color: #74ebd5;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+p[style="color:red"] {
+  margin-bottom: 15px;
+  font-weight: bold;
 }
