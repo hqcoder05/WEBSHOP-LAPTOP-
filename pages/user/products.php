@@ -3,6 +3,10 @@ session_start();
 require_once __DIR__ . '/../../includes/db/database.php';
 require_once __DIR__ . '/../../includes/logic/product_functions.php';
 
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $items_per_page = 12;
 $offset = ($page - 1) * $items_per_page;
@@ -46,8 +50,8 @@ require_once __DIR__ . '/../components/header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title) ?></title>
-    <link href="/Laptop_Shop - Copy/assets/css/user_products.css" rel="stylesheet"/>
-    <script src="/Laptop_Shop - Copy/assets/js/jquery-3.7.1.js"></script>
+    <link href="../../assets/css/user_products.css" rel="stylesheet"/>
+    <script src="../../assets/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 <div class="container mt-4 mb-5">
@@ -60,11 +64,11 @@ require_once __DIR__ . '/../components/header.php';
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item <?php echo ($category_id === null) ? 'active' : ''; ?>">
-                            <a href="/Laptop_Shop - Copy/pages/user/products.php" class="text-decoration-none <?php echo ($category_id === null) ? 'text-white' : 'text-dark'; ?>">Tất cả sản phẩm</a>
+                            <a href="../user/products.php" class="text-decoration-none <?php echo ($category_id === null) ? 'text-white' : 'text-dark'; ?>">Tất cả sản phẩm</a>
                         </li>
                         <?php foreach ($categories as $category): ?>
                             <li class="list-group-item <?php echo ($category_id == $category['id']) ? 'active' : ''; ?>">
-                                <a href="/Laptop_Shop - Copy/pages/user/products.php?category=<?php echo $category['id']; ?>" class="text-decoration-none <?php echo ($category_id == $category['id']) ? 'text-white' : 'text-dark'; ?>">
+                                <a href="../user/products.php?category=<?php echo $category['id']; ?>" class="text-decoration-none <?php echo ($category_id == $category['id']) ? 'text-white' : 'text-dark'; ?>">
                                     <?php echo htmlspecialchars($category['name']); ?>
                                 </a>
                             </li>
@@ -77,7 +81,7 @@ require_once __DIR__ . '/../components/header.php';
                     <h5 class="mb-0">Tìm kiếm</h5>
                 </div>
                 <div class="card-body">
-                    <form action="/Laptop_Shop - Copy/pages/user/products.php" method="GET">
+                    <form action="../user/products.php" method="GET">
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="Tìm kiếm sản phẩm..." value="<?php echo htmlspecialchars($search_keyword ?? ''); ?>">
                             <button class="btn btn-primary" type="submit">
@@ -106,13 +110,13 @@ require_once __DIR__ . '/../components/header.php';
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title product-title">
-                                    <a href="/Laptop_Shop - Copy/pages/user/product_detail.php?id=<?php echo $product['id']; ?>" class="text-decoration-none text-dark">
+                                    <a href="../user/product_detail.php?id=<?php echo $product['id']; ?>" class="text-decoration-none text-dark">
                                         <?php echo htmlspecialchars($product['name']); ?>
                                     </a>
                                 </h5>
                                 <p class="card-text product-category">
                                     <small class="text-muted">
-                                        <a href="/Laptop_Shop - Copy/pages/user/products.php?category=<?php echo $product['category_id']; ?>" class="text-decoration-none text-muted">
+                                        <a href="../user/products.php?category=<?php echo $product['category_id']; ?>" class="text-decoration-none text-muted">
                                             <?php echo htmlspecialchars($product['category_name']); ?>
                                         </a>
                                     </small>
@@ -128,7 +132,7 @@ require_once __DIR__ . '/../components/header.php';
                             </div>
                             <div class="card-footer bg-white">
                                 <div class="d-flex justify-content-between">
-                                    <a href="/Laptop_Shop - Copy/pages/user/product_detail.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-primary">Chi tiết</a>
+                                    <a href="../user/product_detail.php?id=<?php echo $product['id']; ?>" class="btn btn-sm btn-outline-primary">Chi tiết</a>
                                     <?php if ($product['stock'] > 0): ?>
                                         <button class="btn btn-sm btn-primary add-to-cart" data-product-id="<?php echo $product['id']; ?>">Thêm vào giỏ</button>
                                     <?php else: ?>
@@ -146,7 +150,7 @@ require_once __DIR__ . '/../components/header.php';
                                 <a class="page-link" href="<?php
                                 $params = $_GET;
                                 $params['page'] = $page - 1;
-                                echo '/Laptop_Shop - Copy/pages/user/products.php?' . http_build_query($params);
+                                echo '../user/products.php?' . http_build_query($params);
                                 ?>" aria-label="Trước">
                                     <span aria-hidden="true">«</span>
                                 </a>
@@ -156,7 +160,7 @@ require_once __DIR__ . '/../components/header.php';
                                     <a class="page-link" href="<?php
                                     $params = $_GET;
                                     $params['page'] = $i;
-                                    echo '/Laptop_Shop - Copy/pages/user/products.php?' . http_build_query($params);
+                                    echo '../user/products.php?' . http_build_query($params);
                                     ?>"><?php echo $i; ?></a>
                                 </li>
                             <?php endfor; ?>
@@ -164,7 +168,7 @@ require_once __DIR__ . '/../components/header.php';
                                 <a class="page-link" href="<?php
                                 $params = $_GET;
                                 $params['page'] = $page + 1;
-                                echo '/Laptop_Shop - Copy/pages/user/products.php?' . http_build_query($params);
+                                echo '../user/products.php?' . http_build_query($params);
                                 ?>" aria-label="Tiếp">
                                     <span aria-hidden="true">»</span>
                                 </a>
@@ -176,7 +180,7 @@ require_once __DIR__ . '/../components/header.php';
         </div>
     </div>
 </div>
-<script src="/Laptop_Shop - Copy/assets/js/user_products.js"></script>
+<script src="../../assets/js/user_products.js"></script>
 <?php require_once __DIR__ . '/../components/footer.php'; ?>
 </body>
 </html>

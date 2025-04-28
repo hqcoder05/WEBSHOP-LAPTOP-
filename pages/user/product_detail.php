@@ -29,7 +29,7 @@ require_once __DIR__ . '/../components/header.php';
                 <p><strong>Tình trạng:</strong> <?= $product['stock'] > 0 ? 'Còn hàng' : 'Hết hàng' ?></p>
                 <p><?= htmlspecialchars($product['description'] ?? 'Không có mô tả') ?></p>
                 <?php if ($product['stock'] > 0): ?>
-                    <form action="/pages/user/cart.php" method="post">
+                    <form action="../user/cart.php" method="post">
                         <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                         <input type="number" name="quantity" value="1" min="1" max="<?= $product['stock'] ?>">
                         <button type="submit" name="add_to_cart">Thêm vào giỏ hàng</button>
