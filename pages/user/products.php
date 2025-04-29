@@ -90,7 +90,7 @@ require_once __DIR__ . '/../components/header.php';
                 </div>
             </div>
             <!-- Cột 2: Banner -->
-            <div class="col-lg-3">
+            <div class="col-lg-3-1">
             <?php
            include '../../pages/components/banner.php';
             ?>
