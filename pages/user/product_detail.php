@@ -23,55 +23,45 @@ require_once __DIR__ . '/../components/header.php';
         margin: 0;
         padding: 20px;
     }
-
     .container {
-        max-width: 1200px;
-        margin: auto;
-        background-color: #fff;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-        overflow: hidden;
-        padding: 40px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto 20px auto; /* Thêm khoảng cách phía trên */
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
     }
-
     .row {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
     }
-
     .col-md-6 {
         flex: 1 1 50%;
         padding: 10px;
     }
-
     img.img-fluid {
         max-width: 100%;
         height: auto;
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     }
-
     h2 {
         font-size: 32px;
-        color: #000000;
+        color: #007bff;;
         margin-bottom: 10px;
     }
-
     p {
         font-size: 18px;
-        color: #0056b3;
         margin: 10px 0;
     }
-
     strong {
-        color: #111;
         font-size: 20px;
     }
-
     input[type="number"] {
         width: 70px;
         padding: 6px 10px;
@@ -84,13 +74,11 @@ require_once __DIR__ . '/../components/header.php';
         transition: all 0.3s ease;
         text-align: center;
         }
-
     input[type="number"]:focus {
         border-color: #007bff;
         box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
         background-color: #f0f8ff;
     }
-
     button {
         padding: 10px 20px;
         background-color: #007bff;
@@ -101,16 +89,13 @@ require_once __DIR__ . '/../components/header.php';
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
-
     button:hover {
         background-color: #0056b3;
     }
-
     button:disabled {
         background-color: #999;
         cursor: not-allowed;
     }
-
     @media (max-width: 768px) {
         .col-md-6 {
             flex: 1 1 100%;
