@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
 $user = 'root';
-$pass = 'mysql123';
+$pass = '';
 $dbname = 'laptop_shop';
 
 global $conn;
