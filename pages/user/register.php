@@ -5,7 +5,7 @@ session_start();
 <?php if (!empty($_SESSION['error'])): ?>
     <p style="color:red;"><?= htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></p>
 <?php endif; ?>
-<form action="/includes/logic/register_function.php" method="post">
+<form action="../../includes/logic/register_function.php" method="post">
     <label>Username:</label><br>
     <input type="text" name="username" required><br>
     <label>Password:</label><br>
