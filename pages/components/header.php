@@ -1,13 +1,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/Laptop_Shop - Copy/assets/css/header.css">
-<script src="/Laptop_Shop - Copy/assets/js/jquery-3.7.1.js"></script>
+<link rel="stylesheet" href="../../assets/css/header.css">
+<script src="../../assets/js/jquery-3.7.1.js"></script>
 
 <header>
     <div class="header-container">
         <!-- Thêm liên kết đến trang chủ -->
         <div class="shop-name">
-            <a href="../pages/user/home.php">Laptop Việt</a>
+            <a href="../user/home.php">Laptop Việt</a>
         </div>
         <nav>
             <ul>
