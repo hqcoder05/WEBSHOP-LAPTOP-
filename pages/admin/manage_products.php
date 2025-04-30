@@ -1,5 +1,5 @@
 <?php
-  include '../../pages/admin/admin_header.php'
+  include '../../pages/components/admin_header.php'
 ?>
 
 <?php
@@ -77,7 +77,7 @@ if ($selectedId !== null) {
               <td><?= $product['name'] ?></td>
               <td><?= $product['brand'] ?></td>
               <td><?= $product['price'] ?></td>
-              <td><a href="../..pages/admin/manage_products.php?id=<?= $product['id'] ?>" class="btn">Xem chi tiết</a></td>
+              <td><a href="manage_products.php?id=<?= $product['id'] ?>" class="btn">Xem chi tiết</a></td>
             </tr>
           <?php endforeach; ?>
         </tbody>
@@ -85,5 +85,5 @@ if ($selectedId !== null) {
     <?php endif; ?>
   </div>
 <?php
-  include '../../pages/admin/admin_footer.php'
+  include '../../pages/components/admin_footer.php'
 ?>

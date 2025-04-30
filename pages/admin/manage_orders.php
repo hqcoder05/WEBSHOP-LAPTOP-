@@ -1,5 +1,5 @@
 <?php
-  include '../../pages/admin/admin_header.php'
+  include '../../pages/components/admin_header.php'
 ?>
   <div class="admin-container">
     <h1>Quản lý đơn hàng</h1>
@@ -25,5 +25,5 @@
     </table>
   </div>
 <?php
-  include '../../pages/admin/admin_footer.php'
+  include '../../pages/components/admin_footer.php'
 ?>

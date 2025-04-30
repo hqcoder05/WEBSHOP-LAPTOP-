@@ -1,5 +1,5 @@
 <?php
-  include '../../pages/admin/admin_header.php'
+  include '../../pages/components/admin_header.php'
 ?>
 
   <div class="admin-container">
@@ -26,5 +26,5 @@
   </div>
 
 <?php
-  include '../../pages/admin/admin_footer.php'
+  include '../../pages/components/admin_footer.php'
 ?>
