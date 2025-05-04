@@ -14,7 +14,6 @@
                 <li><a href="../user/home.php">Trang Chủ</a></li>
                 <li><a href="../user/products.php">Sản Phẩm</a></li>
                 <li><a href="../user/orders.php">Tra Cứu Đơn Hàng</a></li>
-                <li><a href="../user/cart.php">Giỏ Hàng</a></li>
             </ul>
         </nav>
         <div class="search-bar">
