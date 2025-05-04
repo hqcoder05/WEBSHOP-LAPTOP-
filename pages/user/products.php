@@ -82,7 +82,7 @@ require_once __DIR__ . '/../components/header.php';
                     <h5 class="mb-0">Tìm kiếm</h5>
                 </div>
                 <div class="card-body">
-                    <form action="products.php" method="GET">
+                    <form action="../user/products.php" method="GET">
                         <div class="input-group">
                             <input type="text" class="input-text" name="search" placeholder="Tìm kiếm sản phẩm..." value="<?php echo htmlspecialchars($search_keyword ?? ''); ?>">
                             <button class="button button-primary" type="submit">
@@ -111,7 +111,7 @@ require_once __DIR__ . '/../components/header.php';
                     <?php foreach ($products as $product): ?>
                         <div class="product-card">
                             <div class="product-image-container">
-                                <img src="<?php echo !empty($product['image']) ? htmlspecialchars($product['image']) : '/assets/images/products/default.jpg'; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                                <img src="<?php echo !empty($product['image']) ? htmlspecialchars($product['image']) : '../../assets/images/products/default.jpg'; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title product-title">
@@ -139,7 +139,7 @@ require_once __DIR__ . '/../components/header.php';
                                 <div class="flex justify-between align-center">
                                     <a href="product_detail.php?id=<?php echo $product['id']; ?>" class="button button-outline">Chi tiết</a>
                                     <?php if ($product['stock'] > 0): ?>
-                                        <form action="../user/checkout.php" method="POST" class="form-buy-now">
+                                        <form action="pages/user/checkout.php" method="POST" class="form-buy-now">
                                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                             <input type="number" name="quantity" value="1" min="1" max="<?php echo $product['stock']; ?>" class="input-number" required>
@@ -190,7 +190,6 @@ require_once __DIR__ . '/../components/header.php';
         </div>
     </div>
 </div>
-<script src="../../assets/js/user_products.js"></script>
 <?php require_once __DIR__ . '/../components/footer.php'; ?>
 </body>
 </html>
