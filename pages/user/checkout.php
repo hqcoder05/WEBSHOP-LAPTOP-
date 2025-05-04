@@ -10,119 +10,95 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Kiểm tra yêu cầu POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['full_name'], $_POST['phone'], $_POST['address'], $_POST['csrf_token'])) {
-    $_SESSION['error'] = 'Dữ liệu không hợp lệ.';
-    header('Location: /pages/user/checkout.php');
-    exit;
-}
-
-// Kiểm tra CSRF token
-if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    $_SESSION['error'] = 'Yêu cầu không hợp lệ.';
-    header('Location: /pages/user/checkout.php');
-    exit;
-}
-
-// Kiểm tra dữ liệu checkout trong session
-if (!isset($_SESSION['checkout']) || !isset($_SESSION['checkout']['product_id'], $_SESSION['checkout']['quantity'], $_SESSION['checkout']['total_price'])) {
+// Kiểm tra dữ liệu từ products.php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && 
+    isset($_POST['product_id'], $_POST['quantity'], $_POST['csrf_token']) &&
+    $_POST['csrf_token'] === $_SESSION['csrf_token']) {
+    $product_id = (int)$_POST['product_id'];
+    $quantity = (int)$_POST['quantity'];
+    
+    // Kiểm tra sản phẩm
+    $product = getProductById($product_id);
+    if (!$product) {
+        $_SESSION['error'] = 'Sản phẩm không tồn tại.';
+        header('Location: /pages/user/products.php');
+        exit;
+    }
+    
+    // Kiểm tra tồn kho
+    if ($quantity < 1 || $quantity > $product['stock']) {
+        $_SESSION['error'] = 'Số lượng không hợp lệ hoặc sản phẩm đã hết hàng.';
+        header('Location: /pages/user/products.php');
+        exit;
+    }
+    
+    // Lưu thông tin đơn hàng tạm vào session
+    $_SESSION['checkout'] = [
+        'product_id' => $product_id,
+        'quantity' => $quantity,
+        'total_price' => $product['price'] * $quantity
+    ];
+    
+    // Ghi log để debug
+    error_log("Checkout khởi tạo: Product ID=$product_id, Quantity=$quantity, Total Price={$_SESSION['checkout']['total_price']}");
+} elseif (!isset($_SESSION['checkout'])) {
     $_SESSION['error'] = 'Không tìm thấy thông tin đơn hàng.';
     header('Location: /pages/user/products.php');
     exit;
 }
 
-// Lấy dữ liệu
-$user_id = $_SESSION['user_id'];
-$product_id = (int)$_SESSION['checkout']['product_id'];
-$quantity = (int)$_SESSION['checkout']['quantity'];
-$total_price = (float)$_SESSION['checkout']['total_price'];
-$full_name = trim($_POST['full_name']);
-$phone = trim($_POST['phone']);
-$address = trim($_POST['address']);
-$note = trim($_POST['note'] ?? '');
-
-// Kiểm tra sản phẩm
-$product = getProductById($product_id);
-if (!$product) {
-    $_SESSION['error'] = 'Sản phẩm không tồn tại.';
-    header('Location: /pages/user/products.php');
-    exit;
-}
-
-// Kiểm tra số lượng tồn kho
-if ($quantity < 1 || $quantity > $product['stock']) {
-    $_SESSION['error'] = 'Số lượng không hợp lệ hoặc sản phẩm đã hết hàng.';
-    header('Location: /pages/user/checkout.php');
-    exit;
-}
-
-// Bắt đầu giao dịch
-$conn->begin_transaction();
-
-try {
-    // Kiểm tra tồn kho lần cuối
-    if (!checkStock($product_id, $quantity)) {
-        $conn->rollback();
-        $_SESSION['error'] = 'Sản phẩm đã hết hàng hoặc số lượng không đủ.';
-        header('Location: /pages/user/checkout.php');
-        exit;
-    }
-
-    // Thêm đơn hàng
-    $sql = "INSERT INTO orders (user_id, total_price, status, created_at) VALUES (?, ?, 'pending', NOW())";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("id", $user_id, $total_price);
-    $stmt->execute();
-    $order_id = $conn->insert_id;
-    $stmt->close();
-
-    // Thêm chi tiết đơn hàng
-    $sql = "INSERT INTO order_details (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiid", $order_id, $product_id, $quantity, $product['price']);
-    $stmt->execute();
-    $stmt->close();
-
-    // Thêm địa chỉ giao hàng
-    $sql = "INSERT INTO order_addresses (order_id, full_name, phone, address, note) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issss", $order_id, $full_name, $phone, $address, $note);
-    $stmt->execute();
-    $stmt->close();
-
-    // Thêm hóa đơn
-    $sql = "INSERT INTO invoices (order_id, total_amount, created_at) VALUES (?, ?, NOW())";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("id", $order_id, $total_price);
-    $stmt->execute();
-    $stmt->close();
-
-    // Cập nhật tồn kho
-    $sql = "UPDATE products SET stock = stock - ? WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $quantity, $product_id);
-    $stmt->execute();
-    $stmt->close();
-
-    // Xác nhận giao dịch
-    $conn->commit();
-
-    // Xóa dữ liệu tạm
-    unset($_SESSION['checkout']);
-    $_SESSION['success'] = 'Đặt hàng thành công! Cảm ơn bạn đã mua sắm.';
-
-    // Tạo CSRF token mới
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
-    // Chuyển hướng
-    header('Location: /pages/user/orders.php');
-    exit;
-} catch (Exception $e) {
-    // Hoàn tác giao dịch
-    $conn->rollback();
-    error_log("Lỗi đặt hàng (Order ID: $order_id): " . $e->getMessage());
-    $_SESSION['error'] = 'Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại.';
-    header('Location: /pages/user/checkout.php');
-    exit;
-}
+// Lấy thông tin sản phẩm để hiển thị
+$product = getProductById($_SESSION['checkout']['product_id']);
 ?>
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <?php include __DIR__ . '/../components/header.php'; ?>
+
+    <main>
+        <h1>Thanh toán</h1>
+
+        <?php if (isset($_SESSION['error'])): ?>
+            <p class="error"><?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></p>
+        <?php endif; ?>
+
+        <div class="checkout-summary">
+            <h2>Tóm tắt đơn hàng</h2>
+            <p>Sản phẩm: <?php echo htmlspecialchars($product['name']); ?></p>
+            <p>Số lượng: <?php echo $_SESSION['checkout']['quantity']; ?></p>
+            <p>Tổng giá: <?php echo number_format($_SESSION['checkout']['total_price'], 2); ?> VNĐ</p>
+        </div>
+
+        <form action="/pages/user/checkout_process.php" method="POST">
+            <h2>Thông tin giao hàng</h2>
+            <div>
+                <label for="full_name">Họ tên:</label>
+                <input type="text" id="full_name" name="full_name" required>
+            </div>
+            <div>
+                <label for="phone">Số điện thoại:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10,11}" required>
+            </div>
+            <div>
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div>
+                <label for="note">Ghi chú (tùy chọn):</label>
+                <textarea id="note" name="note"></textarea>
+            </div>
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <button type="submit">Xác nhận đặt hàng</button>
+        </form>
+    </main>
+
+    <?php include __DIR__ . '/../components/footer.php'; ?>
+</body>
+</html>

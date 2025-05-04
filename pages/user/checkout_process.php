@@ -44,6 +44,9 @@ $phone = trim($_POST['phone']);
 $address = trim($_POST['address']);
 $note = trim($_POST['note'] ?? '');
 
+// Ghi log yêu cầu để debug
+error_log("Xử lý đơn hàng: User ID=$user_id, Product ID=$product_id, Quantity=$quantity, Total Price=$total_price");
+
 // Kiểm tra dữ liệu đầu vào
 if (empty($full_name) || empty($phone) || empty($address)) {
     $_SESSION['error'] = 'Vui lòng nhập đầy đủ họ tên, số điện thoại và địa chỉ.';
@@ -135,6 +138,9 @@ try {
 
     // Xác nhận giao dịch
     $conn->commit();
+
+    // Ghi log thành công
+    error_log("Đặt hàng thành công: Order ID=$order_id");
 
     // Xóa dữ liệu tạm
     unset($_SESSION['checkout']);
