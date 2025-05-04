@@ -25,7 +25,7 @@ if ($user && password_verify($password, $user['password'])) {
     exit;
 } else {
     $_SESSION['error'] = "Tài khoản hoặc mật khẩu không đúng";
-    header("Location: ../pages/user/login.php");
+    header("Location: ../../pages/user/login.php");
     exit;
 }
 ?>
