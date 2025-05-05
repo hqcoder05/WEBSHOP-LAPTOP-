@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../db/database.php';
+global $conn;
 
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -11,7 +12,8 @@ if (empty($username) || empty($password)) {
     exit;
 }
 
-$stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
+// Lấy thêm cột role
+$stmt = $conn->prepare("SELECT id, username, password, role FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -21,7 +23,14 @@ $stmt->close();
 if ($user && password_verify($password, $user['password'])) {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
-    header("Location: ../../pages/user/home.php");
+    $_SESSION['role'] = $user['role'];
+
+    // Kiểm tra role để chuyển hướng
+    if ($user['role'] === 'admin') {
+        header("Location: ../../pages/admin/dashboard.php");
+    } else {
+        header("Location: ../../pages/user/home.php");
+    }
     exit;
 } else {
     $_SESSION['error'] = "Tài khoản hoặc mật khẩu không đúng";

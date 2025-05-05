@@ -1,9 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 require_once __DIR__ . '/../../includes/logic/product_functions.php';
 $featured_products = getFeaturedProducts(4);
 require_once __DIR__ . '/../components/header.php';

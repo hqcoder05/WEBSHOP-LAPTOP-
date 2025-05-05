@@ -1,89 +1,68 @@
 <?php
-  include '../../pages/components/admin_header.php'
-?>
+include '../../pages/components/admin_header.php';
+require_once '../../includes/db/database.php';
+global $conn;
 
-<?php
-// Giả lập danh sách sản phẩm
-$products = [
-  [
-    'id' => 1,
-    'name' => 'Dell Inspiron 15',
-    'brand' => 'Dell',
-    'price' => '$800',
-    'description' => 'Laptop hiệu năng cao, thiết kế chắc chắn.'
-  ],
-  [
-    'id' => 2,
-    'name' => 'MacBook Air M2',
-    'brand' => 'Macbook',
-    'price' => '$1200',
-    'description' => 'Thiết kế mỏng nhẹ, chip M2 cực mạnh.'
-  ],
-  [
-    'id' => 3,
-    'name' => 'HP Pavilion 14',
-    'brand' => 'HP',
-    'price' => '$650',
-    'description' => 'Hiệu suất tốt, phù hợp sinh viên và văn phòng.'
-  ],
-  [
-    'id' => 4,
-    'name' => 'Lenovo ThinkPad X1',
-    'brand' => 'Lenovo',
-    'price' => '$1100',
-    'description' => 'Bền bỉ, pin trâu, bàn phím cực tốt cho dân văn phòng.'
-  ]
-];
+// Lấy danh sách sản phẩm từ CSDL
+$result = $conn->query("SELECT * FROM products");
+$products = $result->fetch_all(MYSQLI_ASSOC);
 
 // Xem chi tiết nếu có ID được chọn
 $selectedId = $_GET['id'] ?? null;
 $selectedProduct = null;
 if ($selectedId !== null) {
-  foreach ($products as $product) {
-    if ($product['id'] == $selectedId) {
-      $selectedProduct = $product;
-      break;
+    $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->bind_param('i', $selectedId);
+    $stmt->execute();
+    $product_result = $stmt->get_result();
+    if ($product_result->num_rows > 0) {
+        $selectedProduct = $product_result->fetch_assoc();
     }
-  }
 }
 ?>
 
-  <div class="container">
-    <h1>Quản lý sản phẩm</h1>
+    <div class="container">
+        <h1>Quản lý sản phẩm</h1>
 
-    <?php if ($selectedProduct): ?>
-      <div class="product-detail">
-        <h2><?= $selectedProduct['name'] ?></h2>
-        <p><strong>Thương hiệu:</strong> <?= $selectedProduct['brand'] ?></p>
-        <p><strong>Giá:</strong> <?= $selectedProduct['price'] ?></p>
-        <p><strong>Mô tả:</strong> <?= $selectedProduct['description'] ?></p>
-        <a href="../../pages/admin/manage_products.php" class="btn">Quay lại</a>
-      </div>
-    <?php else: ?>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Tên sản phẩm</th>
-            <th>Thương hiệu</th>
-            <th>Giá</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($products as $product): ?>
-            <tr>
-              <td><?= $product['id'] ?></td>
-              <td><?= $product['name'] ?></td>
-              <td><?= $product['brand'] ?></td>
-              <td><?= $product['price'] ?></td>
-              <td><a href="manage_products.php?id=<?= $product['id'] ?>" class="btn">Xem chi tiết</a></td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    <?php endif; ?>
-  </div>
+        <?php if ($selectedProduct): ?>
+            <div class="product-detail">
+                <h2><?= htmlspecialchars($selectedProduct['name']) ?></h2>
+                <p><strong>Thương hiệu:</strong> <?= htmlspecialchars($selectedProduct['brand']) ?></p>
+                <p><strong>Giá:</strong> <?= number_format($selectedProduct['price'], 0, ',', '.') ?> VND</p>
+                <p><strong>Mô tả:</strong> <?= htmlspecialchars($selectedProduct['description']) ?></p>
+                <a href="manage_products.php" class="btn">Quay lại</a>
+            </div>
+        <?php else: ?>
+            <a href="add_product.php" class="btn btn-add">+ Thêm sản phẩm mới</a>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Thương hiệu</th>
+                    <th>Giá</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($products as $product): ?>
+                    <tr>
+                        <td><?= $product['id'] ?></td>
+                        <td><?= htmlspecialchars($product['name']) ?></td>
+                        <td><?= htmlspecialchars($product['brand']) ?></td>
+                        <td><?= number_format($product['price'], 0, ',', '.') ?> VND</td>
+                        <td>
+                            <a href="manage_products.php?id=<?= $product['id'] ?>" class="btn">Xem</a>
+                            <a href="edit_product.php?id=<?= $product['id'] ?>" class="btn btn-edit">Sửa</a>
+                            <a href="delete_product.php?id=<?= $product['id'] ?>" class="btn btn-delete" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+
 <?php
-  include '../../pages/components/admin_footer.php'
+include '../../pages/components/admin_footer.php';
 ?>

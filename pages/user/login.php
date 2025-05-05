@@ -7,6 +7,7 @@ if (isset($_SESSION['user_id'])) {
 require_once __DIR__ . '/../components/header.php';
 ?>
 <link rel="stylesheet" href="../../assets/css/login.css">
+<title>Đăng nhập</title>
 <div class="login-page">
     <div class="container">
         <h2>Đăng nhập</h2>

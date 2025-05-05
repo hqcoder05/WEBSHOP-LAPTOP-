@@ -30,7 +30,7 @@ $page_title = "Tất cả sản phẩm";
 if ($category_id !== null && $category_id > 0) {
     foreach ($categories as $cat) {
         if ($cat['id'] == $category_id) {
-            $page_title = "Sản phẩm: " . $cat['name'];
+            $page_title = $cat['name'];
             break;
         }
     }
@@ -109,7 +109,7 @@ require_once __DIR__ . '/../components/header.php';
                     <?php foreach ($products as $product): ?>
                         <div class="product-card">
                             <div class="product-image-container">
-                                <img src="<?php echo !empty($product['image']) ? htmlspecialchars($product['image']) : '/Laptop_Shop - Copy/assets/images/products/default.jpg'; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                                <img src="<?php echo !empty($product['image']) ? htmlspecialchars($product['image']) : '../../assets/images/products/default.jpg'; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title product-title">
