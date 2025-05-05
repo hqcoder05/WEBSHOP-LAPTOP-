@@ -3,11 +3,15 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Đảm bảo body chiếm toàn bộ chiều cao viewport */
 }
 
 /* Container */
 .container {
+    flex: 1; /* Chiếm không gian còn lại để đẩy footer xuống */
+    min-height: 80vh; /* Đảm bảo khoảng cách tối thiểu trước footer */
     max-width: 1200px;
     margin: 40px auto 20px auto;
     background-color: #fff;
@@ -194,17 +198,13 @@ button:disabled {
     background-color: #0056b3;
 }
 
-/* Back link */
-a {
-    text-decoration: none;
-    color: #007bff;
-    font-size: 16px;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #0056b3;
-    text-decoration: underline;
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
 }
 
 /* Responsive design */
