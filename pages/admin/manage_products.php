@@ -75,7 +75,8 @@ include '../../pages/components/admin_header.php';
                 <p><strong>Giá hiện tại:</strong> <?= number_format($selectedProduct['price'], 0, ',', '.') ?> VND</p>
                 <p><strong>Mô tả:</strong> <?= htmlspecialchars($selectedProduct['description'] ?: 'Không có mô tả') ?></p>
                 <p><strong>Kho:</strong> <?= $selectedProduct['stock'] ?> sản phẩm</p>
-                <p><strong>Hình ảnh:</strong> <img src="../../assets/images/products/<?= htmlspecialchars($selectedProduct['image']) ?>" alt="<?= htmlspecialchars($selectedProduct['name']) ?>" width="200"></p>
+                <p><strong>Hình ảnh:</strong> <img src="<?= htmlspecialchars($selectedProduct['image']) ?>" alt="..." style="width: 150px; height: 150px; object-fit: contain;"></p>
+
 
                 <h3>Sửa giá sản phẩm</h3>
                 <form method="POST" action="">

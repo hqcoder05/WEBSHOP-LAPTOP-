@@ -75,11 +75,9 @@ $status_labels = [
 
 // Hàm tạo đường dẫn hình ảnh từ cột image
 function getImagePath($image) {
-    if (empty($image)) {
-        return '/assets/images/products/default.jpg';
-    }
-    return '/assets/images/products/' . htmlspecialchars($image);
+    return !empty($image) ? htmlspecialchars($image) : '../../assets/images/products/default.jpg';
 }
+
 
 include '../../pages/components/admin_header.php';
 ?>

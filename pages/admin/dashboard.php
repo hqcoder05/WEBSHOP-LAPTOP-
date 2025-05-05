@@ -7,6 +7,7 @@ global $conn;
 $productCount = $conn->query("SELECT COUNT(*) AS count FROM products")->fetch_assoc()['count'];
 $categoryCount = $conn->query("SELECT COUNT(*) AS count FROM categories")->fetch_assoc()['count'];
 $orderCount = $conn->query("SELECT COUNT(*) AS count FROM orders")->fetch_assoc()['count'];
+$userCount = $conn->query("SELECT COUNT(*) AS count FROM users")->fetch_assoc()['count']; // Thêm phần thống kê người dùng
 ?>
 <title>ADMIN MANAGEMENT</title>
 <div class="admin-container">
@@ -24,11 +25,16 @@ $orderCount = $conn->query("SELECT COUNT(*) AS count FROM orders")->fetch_assoc(
             <h3><?= $orderCount ?></h3>
             <p>Đơn hàng</p>
         </div>
+        <div class="stat-box">
+            <h3><?= $userCount ?></h3> <!-- Hiển thị số lượng người dùng -->
+            <p>Người dùng</p>
+        </div>
     </div>
     <ul class="nav">
         <li><a href="../../pages/admin/manage_products.php">Quản lý sản phẩm</a></li>
-        <li><a href="../../pages/admin/manage_categories.php">Quản lý thương hiệu</a></li>
+        <li><a href="../../pages/admin/manage_categories.php">Quản lý danh mục</a></li>
         <li><a href="../../pages/admin/manage_orders.php">Quản lý đơn hàng</a></li>
+        <li><a href="../../pages/admin/manage_users.php">Quản lý người dùng</a></li>
     </ul>
 </div>
 

@@ -63,6 +63,7 @@ if (isset($_GET['order_id'])) {
     <link rel="stylesheet" href="../../assets/css/order_detail.css">
 </head>
 <body>
+<div class="order-detail-wrapper container mt-4 mb-5">
 <div class="container mt-4 mb-5">
     <h2>Hóa đơn chi tiết đơn hàng #<?php echo $order['id']; ?></h2>
 
@@ -115,7 +116,11 @@ if (isset($_GET['order_id'])) {
         <tbody>
         <?php while ($detail = $details_result->fetch_assoc()): ?>
             <tr>
-                <td><img src="../../assets/images/laptop/<?php echo htmlspecialchars($detail['product_image']); ?>" width="100" alt="<?php echo htmlspecialchars($detail['product_name']); ?>"></td>
+                <td>
+                    <img src="<?php echo htmlspecialchars($detail['product_image']); ?>"
+                         alt="<?php echo htmlspecialchars($detail['product_name']); ?>"
+                         style="width: 120px; height: 120px; object-fit: contain; border: 1px solid #ccc;">
+                </td>
                 <td><?php echo htmlspecialchars($detail['product_name']); ?></td>
                 <td><?php echo $detail['quantity']; ?></td>
                 <td><?php echo number_format($detail['price'], 0, ',', '.'); ?> VND</td>
@@ -129,6 +134,6 @@ if (isset($_GET['order_id'])) {
         <strong>Tổng cộng: <?php echo number_format($order['total_price'], 0, ',', '.'); ?> VND</strong>
     </div>
 </div>
-<?php require_once '../../pages/components/footer.php'; ?>
 </body>
 </html>
+<?php require_once '../../pages/components/footer.php'; ?>
