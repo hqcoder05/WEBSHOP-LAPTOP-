@@ -1,8 +1,7 @@
--- Tạo database
 CREATE DATABASE IF NOT EXISTS laptop_shop;
 USE laptop_shop;
 
--- Bảng users (đồng bộ với User.php)
+-- Bảng users
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
@@ -96,53 +95,51 @@ CREATE TABLE invoices (
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
--- Chèn dữ liệu mẫu
--- users (đồng bộ với User.php)
-INSERT INTO users (username, password, email) VALUES
-    ('admin', '$2y$10$8J9zX8yZ3tQwX7mZ5vN2.uK6lQz9jP8kL3rW4tY5uX6vZ7wY8x9A0', 'admin@laptopshop.com'),
-    ('user1', '$2y$10$9K0yA9zX4uRxY8nZ6wO3.vL7mRz0kQ9lM4tX5uY6vZ8wA0xB1yC2D', 'user1@laptopshop.com');
-
--- categories
-INSERT INTO categories (name, description) VALUES
-    ('Laptop Gaming', 'Laptop hiệu năng cao cho chơi game'),
-    ('Laptop Văn phòng', 'Laptop nhẹ, phù hợp công việc văn phòng');
-
--- products
-INSERT INTO products (category_id, name, description, price, stock, image) VALUES
-    (1, 'Laptop Gaming A', 'Laptop với GPU RTX 3060, RAM 16GB', 25000.00, 10, 'laptop_a.jpg'),
-    (2, 'Laptop Văn phòng B', 'Laptop mỏng nhẹ, pin 10h', 15000.00, 20, 'laptop_b.jpg');
-
--- carts
-INSERT INTO carts (user_id) VALUES
-    (2);
-
--- cart_items
-INSERT INTO cart_items (cart_id, product_id, quantity) VALUES
-    (1, 1, 2);
-
--- orders
-INSERT INTO orders (user_id, total_amount, status) VALUES
-    (2, 50000.00, 'pending');
-
--- order_details
-INSERT INTO order_details (order_id, product_id, quantity, price) VALUES
-    (1, 1, 2, 25000.00);
-
--- order_addresses
-INSERT INTO order_addresses (order_id, address, city, postal_code, country) VALUES
-    (1, '123 Đường Láng', 'Hà Nội', '100000', 'Việt Nam');
-
--- invoices
-INSERT INTO invoices (order_id, total_amount, status) VALUES
-    (1, 50000.00, 'unpaid');
-
-ALTER TABLE users
-ADD role ENUM('user', 'admin') DEFAULT 'user';
-
 -- Gán role admin cho username: admin
-UPDATE users
-SET role = 'admin'
-WHERE username = 'admin';
+UPDATE users SET role = 'admin' WHERE username = 'admin';
 
--- Kiểm tra dữ liệu
-SELECT * FROM users;
+INSERT INTO categories (name, description) VALUES
+    ('DELL', 'Laptop thương hiệu DELL với hiệu năng mạnh mẽ'),
+    ('Lenovo', 'Laptop Lenovo với thiết kế tinh tế, phù hợp công việc'),
+    ('HP', 'Laptop HP với cấu hình đa dạng và độ bền cao'),
+    ('Macbook', 'Laptop Macbook của Apple, mỏng nhẹ, hiệu suất cao');
+    
+INSERT INTO products (category_id, name, description, price, stock, image) VALUES
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo ThinkPad X1 Carbon', 'Ultrabook cao cấp, i7, 16GB RAM, 512GB SSD', 32000.00, 10, 'https://www.lenovo.com/medias/thinkpad-x1-carbon-gen10-hero.png'),
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo IdeaPad 3', 'Laptop phổ thông, i3, 8GB RAM, 256GB SSD', 14000.00, 25, 'https://www.lenovo.com/medias/ideapad-3-15-hero.png'),
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo Legion 5', 'Laptop gaming, Ryzen 7, 16GB RAM, RTX 3050', 28000.00, 12, 'https://www.lenovo.com/medias/legion-5-15-hero.png'),
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo Yoga Slim 7', 'Laptop thời trang, i5, 8GB RAM, 512GB SSD', 23000.00, 18, 'https://www.lenovo.com/medias/yoga-slim-7-hero.png'),
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo ThinkBook 14', 'Laptop doanh nhân, i5, 16GB RAM, 512GB SSD', 21000.00, 15, 'https://www.lenovo.com/medias/thinkbook-14-hero.png'),
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo V14', 'Laptop học tập, Ryzen 3, 8GB RAM, 256GB SSD', 13000.00, 20, 'https://www.lenovo.com/medias/v14-ada-hero.png'),
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo ThinkPad E15', 'Laptop doanh nghiệp, i5, 8GB RAM, 256GB SSD', 19000.00, 14, 'https://www.lenovo.com/medias/thinkpad-e15-hero.png'),
+((SELECT id FROM categories WHERE name = 'Lenovo'), 'Lenovo Flex 5', 'Laptop cảm ứng, Ryzen 5, 16GB RAM, 512GB SSD', 24000.00, 10, 'https://www.lenovo.com/medias/flex-5-hero.png');
+
+INSERT INTO products (category_id, name, description, price, stock, image) VALUES
+((SELECT id FROM categories WHERE name = 'HP'), 'HP Pavilion 15', 'Laptop phổ thông, i5, 8GB RAM, 512GB SSD', 21000.00, 20, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715009.png'),
+((SELECT id FROM categories WHERE name = 'HP'), 'HP Envy 13', 'Ultrabook sang trọng, i7, 16GB RAM, 512GB SSD', 28000.00, 12, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715010.png'),
+((SELECT id FROM categories WHERE name = 'HP'), 'HP Omen 16', 'Laptop gaming, i7, 32GB RAM, RTX 3060', 37000.00, 8, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715011.png'),
+((SELECT id FROM categories WHERE name = 'HP'), 'HP EliteBook 840', 'Laptop doanh nhân, i5, 16GB RAM, 512GB SSD', 26000.00, 15, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715012.png'),
+((SELECT id FROM categories WHERE name = 'HP'), 'HP Spectre x360', 'Laptop cảm ứng 2-in-1, i7, 16GB RAM, 1TB SSD', 34000.00, 10, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715013.png'),
+((SELECT id FROM categories WHERE name = 'HP'), 'HP 245 G8', 'Laptop học tập, Ryzen 5, 8GB RAM, 256GB SSD', 16000.00, 22, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715014.png'),
+((SELECT id FROM categories WHERE name = 'HP'), 'HP ProBook 450', 'Laptop văn phòng, i5, 8GB RAM, 512GB SSD', 22000.00, 18, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715015.png'),
+((SELECT id FROM categories WHERE name = 'HP'), 'HP ZBook Firefly 14', 'Laptop đồ họa, i7, 16GB RAM, 512GB SSD', 36000.00, 6, 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c07715016.png');
+
+INSERT INTO products (category_id, name, description, price, stock, image) VALUES
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook Air M1', 'Macbook Air với chip M1, 8GB RAM, 256GB SSD', 28000.00, 15, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-m1-hero'),
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook Pro M1 13"', 'Macbook Pro 13 inch M1, 8GB RAM, 512GB SSD', 36000.00, 10, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-pro-13-m1-hero'),
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook Pro M2 14"', 'Macbook Pro 14 inch M2, 16GB RAM, 512GB SSD', 48000.00, 8, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-pro-14-hero'),
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook Air M2', 'Macbook Air M2, 8GB RAM, 256GB SSD', 32000.00, 12, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-15-hero'),
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook Pro 16" M2 Pro', 'Macbook Pro 16 inch M2 Pro, 32GB RAM, 1TB SSD', 68000.00, 5, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-pro-16-hero'),
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook Air 2020 Intel', 'Macbook Air chip Intel, 8GB RAM, 256GB SSD', 24000.00, 20, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-2020-intel-hero'),
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook Pro 2020 Intel', 'Macbook Pro 13 inch Intel, 16GB RAM, 512GB SSD', 30000.00, 10, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-pro-2020-intel'),
+((SELECT id FROM categories WHERE name = 'Macbook'), 'MacBook 12"', 'Macbook 12 inch, 8GB RAM, 256GB SSD (2017)', 18000.00, 6, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-12-2017-hero');
+
+INSERT INTO products (category_id, name, description, price, stock, image) VALUES
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell XPS 13', 'Ultrabook cao cấp, i7, 16GB RAM, 512GB SSD', 35000.00, 10, 'https://i.dell.com/sites/csimages/Master_Imagery/all/xps-13-9300-laptop.jpg'),
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell Inspiron 15', 'Laptop phổ thông, i5, 8GB RAM, 512GB SSD', 21000.00, 20, 'https://i.dell.com/sites/csimages/Master_Imagery/all/inspiron-15-5502-laptop.jpg'),
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell G15 Gaming', 'Laptop gaming, i7, 16GB RAM, RTX 3050', 30000.00, 12, 'https://i.dell.com/sites/csimages/Video_Imagery/all/g15-gaming-laptop.jpg'),
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell Latitude 3420', 'Laptop văn phòng, i5, 8GB RAM, 256GB SSD', 19000.00, 15, 'https://i.dell.com/sites/csimages/Video_Imagery/all/latitude-3420-laptop.jpg'),
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell Vostro 3400', 'Laptop doanh nhân, i3, 8GB RAM, 256GB SSD', 17000.00, 18, 'https://i.dell.com/sites/csimages/Video_Imagery/all/vostro-3400.jpg'),
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell Precision 5560', 'Laptop đồ họa, i9, 32GB RAM, 1TB SSD', 50000.00, 5, 'https://i.dell.com/sites/csimages/Video_Imagery/all/precision-5560.jpg'),
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell XPS 15', 'Ultrabook màn hình lớn, i7, 16GB RAM, 1TB SSD', 42000.00, 8, 'https://i.dell.com/sites/csimages/Video_Imagery/all/xps-15-9500.jpg'),
+((SELECT id FROM categories WHERE name = 'Dell'), 'Dell Alienware m15 R6', 'Laptop gaming cao cấp, i7, RTX 3070, 32GB RAM', 58000.00, 4, 'https://i.dell.com/sites/csimages/Video_Imagery/all/alienware-m15-r6.jpg');
