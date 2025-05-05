@@ -79,23 +79,23 @@
       <div class="section group">
         <div class="listview_1_of_2">
           <div class="listimg">
-            <a href="product_detail.php"><img src="" alt="Dell"/></a>
+            <a href="../user/product_detail.php"><img src="../../assets/images/logo/Dell-Logo.png" alt="Dell"/></a>
           </div>
           <div class="text">
             <h2>Dell</h2>
             <p>Còn hàng.</p>
-            <div class="button"><a href="product_detail.php">Thêm vào giỏ hàng</a></div>
+            <div class="button"><a href="../user/product_detail.php">Thêm vào giỏ hàng</a></div>
           </div>
         </div>
 
         <div class="listview_1_of_2">
           <div class="listimg">
-            <a href="product_detail.php"><img src="" alt="HP"/></a>
+            <a href="../user/product_detail.php"><img src="../../assets/images/logo/HP-Logo.png" alt="HP"/></a>
           </div>
           <div class="text">
             <h2>HP</h2>
             <p>Còn hàng</p>
-            <div class="button"><a href="product_detail.php">Thêm vào giỏ hàng</a></div>
+            <div class="button"><a href="../user/product_detail.php">Thêm vào giỏ hàng</a></div>
           </div>
         </div>
       </div>
@@ -103,23 +103,23 @@
       <div class="section group">
         <div class="listview_1_of_2">
           <div class="listimg">
-            <a href="product_detail.php"><img src="" alt="Lenovo"/></a>
+            <a href="../user/product_detail.php"><img src="../../assets/images/logo/Lenovo-logo.png" alt="Lenovo"/></a>
           </div>
           <div class="text">
             <h2>Lenovo</h2>
             <p>Còn hàng.</p>
-            <div class="button"><a href="product_detail.php">Thêm vào giỏ hàng</a></div>
+            <div class="button"><a href="../user/product_detail.php">Thêm vào giỏ hàng</a></div>
           </div>
         </div>
 
         <div class="listview_1_of_2">
           <div class="listimg">
-            <a href="product_detail.php"><img src="" alt="Macbook"/></a>
+            <a href="../user/product_detail.php"><img src="../../assets/images/logo/Apple.png" alt="Macbook"/></a>
           </div>
           <div class="text">
             <h2>Macbook</h2>
             <p>Còn hàng.</p>
-            <div class="button"><a href="product_detail.php">Thêm vào giỏ hàng</a></div>
+            <div class="button"><a href="../user/product_detail.php">Thêm vào giỏ hàng</a></div>
           </div>
         </div>
       </div>

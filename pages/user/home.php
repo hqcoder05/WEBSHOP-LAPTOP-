@@ -4,17 +4,15 @@ require_once __DIR__ . '/../../includes/logic/product_functions.php';
 $featured_products = getFeaturedProducts(4);
 require_once __DIR__ . '/../components/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
-    <link href="../../assets/css/home-styles.css" rel="stylesheet">
-</head>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trang chủ</title>
+<link href="../../assets/css/home-styles.css" rel="stylesheet">
+
 <body>
     <div class="container">
-        <h2>Chào mừng, <?= htmlspecialchars($_SESSION['username'] ?? 'Khách') ?>!</h2>
+        <h2>Chào mừng, <?= htmlspecialchars($_SESSION['username'] ?? 'Quý khách') ?>!</h2>
         <h3>Sản phẩm nổi bật</h3>
         <div class="row">
             <?php foreach ($featured_products as $product): ?>

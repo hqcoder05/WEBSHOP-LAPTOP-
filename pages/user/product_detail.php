@@ -1,4 +1,5 @@
 <?php
+global $selectedProduct, $conn;
 session_start();
 require_once __DIR__ . '/../../includes/logic/product_functions.php';
 
@@ -10,6 +11,15 @@ if (!$product) {
     exit();
 }
 
+$comments = [];
+if ($product_id > 0) {
+    $stmt = $conn->prepare("SELECT user_name, comment, created_at FROM comments WHERE product_id = ? ORDER BY created_at DESC");
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $comments = $result->fetch_all(MYSQLI_ASSOC);
+}
+
 require_once __DIR__ . '/../components/header.php';
 ?>
 
@@ -18,7 +28,6 @@ require_once __DIR__ . '/../components/header.php';
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($product['name']) ?></title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/product_detail.css">
 </head>
 <body>
@@ -40,6 +49,31 @@ require_once __DIR__ . '/../components/header.php';
             </p>
         </div>
     </div>
+    <div class="comments-section">
+        <h3>Bình luận</h3>
+        <?php if (count($comments) > 0): ?>
+            <?php foreach ($comments as $cmt): ?>
+                <div class="comment-box">
+                    <p><strong><?= htmlspecialchars($cmt['user_name']) ?>:</strong></p>
+                    <p><?= nl2br(htmlspecialchars($cmt['comment'])) ?></p>
+                    <small><?= $cmt['created_at'] ?></small>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Chưa có bình luận nào.</p>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <form method="post" action="../../includes/logic/add_comment.php" class="comment-form">
+                <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                <textarea name="comment" placeholder="Viết bình luận..." required></textarea>
+                <button type="submit">Gửi</button>
+            </form>
+        <?php else: ?>
+            <p>Bạn cần <a href="../../pages/user/login.php">đăng nhập</a> để bình luận.</p>
+        <?php endif; ?>
+
+    </div>
+
 </div>
 
 <?php require_once __DIR__ . '/../components/footer.php'; ?>

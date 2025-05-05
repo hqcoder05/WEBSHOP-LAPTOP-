@@ -22,7 +22,7 @@ if (isset($_GET['delete_id'])) {
 // Lấy danh sách danh mục
 $categories = $conn->query("SELECT * FROM categories ORDER BY id DESC");
 ?>
-
+<title>ADMIN MANAGEMENT</title>
 <div class="admin-container">
     <h1>Quản lý danh mục</h1>
 

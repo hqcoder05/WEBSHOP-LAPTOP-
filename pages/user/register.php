@@ -1,6 +1,14 @@
 <?php
 session_start();
+if (isset($_SESSION['user'])) {
+    header("Location: ../../index.php");
+    exit();
+}
+require_once __DIR__ . '/../../pages/components/header.php';
 ?>
+
+<title>Đăng ký tài khoản</title>
+<link rel="stylesheet" type="text/css" href="../../assets/css/register.css">
 <h2>Đăng ký tài khoản</h2>
 <?php if (!empty($_SESSION['error'])): ?>
     <p style="color:red;"><?= htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></p>
@@ -16,3 +24,4 @@ session_start();
     <input type="email" name="email" required><br>
     <button type="submit">Đăng ký</button>
 </form>
+<?php require_once __DIR__ . '/../../pages/components/footer.php'; ?>
