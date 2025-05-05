@@ -1,0 +1,113 @@
+/* Thiết lập chung cho body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Định dạng container chung */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Tiêu đề chính */
+h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Định dạng cho bảng thông tin đơn hàng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+td {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Căn chỉnh các trường hợp tiêu đề và các thông tin sản phẩm */
+table th, table td {
+    font-size: 16px;
+}
+
+/* Định dạng các hình ảnh sản phẩm */
+table img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Định dạng thông tin giao hàng */
+h3 {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table th, .table td {
+    padding: 8px;
+    text-align: left;
+}
+
+/* Định dạng phần tổng tiền */
+.text-right {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Thêm hiệu ứng hover cho các hàng trong bảng */
+table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Các yếu tố phụ trợ */
+strong {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Định dạng các phần tử nhỏ như link, status */
+small {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Thêm khoảng cách cho các bảng thông tin */
+table {
+    margin-bottom: 20px;
+}
+
+/* Định dạng cho các phần khác trong giao diện */
+.container table {
+    margin-bottom: 40px;
+}
