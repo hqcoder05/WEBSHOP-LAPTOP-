@@ -1,94 +1,81 @@
-/* General styles */
+/* assets/css/register.css */
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
-  min-height: 100vh;
 }
 
-/* Login/register page */
 .register-page {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   padding: 20px;
 }
 
-/* Container */
 .container {
   background-color: #ffffff;
   padding: 40px 30px;
   border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
 }
 
-/* Heading */
 h2 {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   color: #333;
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 24px;
 }
 
-/* Form */
 form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
-/* Labels */
 label {
+  margin-bottom: 6px;
   text-align: left;
   color: #555;
   font-weight: 500;
-  font-size: 14px;
-  margin-bottom: 8px;
 }
 
-/* Inputs */
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-  padding: 14px;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  font-size: 16px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: #f9f9f9;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus {
   border-color: #74ebd5;
-  box-shadow: 0 0 8px rgba(116, 235, 213, 0.4);
+  box-shadow: 0 0 8px rgba(116, 235, 213, 0.5);
   outline: none;
-  background-color: #fff;
 }
 
-/* Button */
 button {
-  padding: 14px;
+  padding: 12px;
   background-color: #74ebd5;
   border: none;
-  border-radius: 10px;
-  color: #ffffff;
+  border-radius: 8px;
+  color: white;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
@@ -96,72 +83,27 @@ button:hover {
   transform: translateY(-2px);
 }
 
-button:active {
-  transform: translateY(0);
-}
-
-/* Paragraphs and links */
 p {
   margin-top: 20px;
   font-size: 14px;
   color: #555;
 }
 
-p a {
-  color: #74ebd5;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-p a:hover {
-  color: #66d3c2;
-  text-decoration: underline;
-}
-
-/* Error message */
-p.error {
-  color: #dc3545;
-  font-weight: bold;
+p[style="color:red"] {
   margin-bottom: 15px;
-  font-size: 14px;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .container {
-    max-width: 100%;
-    padding: 30px 20px;
-    margin: 20px;
-  }
-
-  h2 {
-    font-size: 24px;
-  }
-
-  input[type="text"],
-  input[type="password"],
-  input[type="email"] {
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  button {
-    padding: 12px;
-    font-size: 14px;
-  }
+  font-weight: bold;
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 20px 15px;
+    padding: 30px 20px;
   }
 
-  label {
-    font-size: 12px;
+  h2 {
+    font-size: 20px;
   }
 
-  p {
-    font-size: 12px;
+  button {
+    font-size: 14px;
   }
 }

@@ -95,3 +95,33 @@ p[style="color:red"] {
   margin-bottom: 15px;
   font-weight: bold;
 }
+
+/* assets/css/login.css */
+
+/* Style for email input */
+input[type="email"] {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="email"]:focus {
+  border-color: #74ebd5;
+  box-shadow: 0 0 8px rgba(116, 235, 213, 0.5);
+  outline: none;
+}
+
+input[type="email"]::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+small {
+  display: block;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: #888;
+}
